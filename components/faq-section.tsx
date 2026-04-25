@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     question: "Will there be internship opportunities?",
-    answer: "Yes! We have partnered with several companies that will be looking for talented individuals. Top performers at the AI-Thon showcase will have exclusive access to internship opportunities.",
+    answer: "Yes! We have partnered with several Tech companies & Startups that will be looking for talented individuals. Also, Top performers at the AI-Thon showcase will have exclusive access to internship opportunities.",
   },
   {
     question: "What should I bring to the event?",
@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Is the event free?",
-    answer: "The event has a nominal registration fee to confirm attendance. Early bird tickets are available at a discounted rate. Check the tickets section for current pricing.",
+    answer: "The event has a nominal registration fee to confirm attendance. Early bird tickets were available at a discounted rate but the offer is now over. Check the tickets section for current pricing.",
   },
 ]
 
@@ -48,7 +48,7 @@ export function FAQSection() {
           <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
               <StaggerItem key={index}>
-                <AccordionItem 
+                <AccordionItem
                   value={`item-${index}`}
                   className="bg-card border border-border rounded-2xl px-6 data-[state=open]:border-primary/50 transition-colors"
                 >

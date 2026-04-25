@@ -20,7 +20,7 @@ const tickets = [
       "Networking with builders",
     ],
     cta: "Buy your ticket",
-    note: "5 days left!",
+    note: "Offer Expierd",
     variant: "early" as const,
     link: "https://mlbhopal.tech/",
   },
