@@ -10,10 +10,12 @@ import { SponsorsSection } from "@/components/sponsors-section"
 import { CTASection } from "@/components/cta-section"
 import { FAQSection } from "@/components/faq-section"
 import { Footer } from "@/components/footer"
+import { PageLoader } from "@/components/page-loader"
 
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <PageLoader />
       <Navbar />
       <main>
         <HeroSection />
