@@ -3,30 +3,33 @@
 import { User } from "lucide-react"
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const speakers = [
   {
     name: "Dr. Anukriti Bansal",
     role: "Google Developer Expert - AI",
     organization: "LNMIIT Jaipur",
-    image: null,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/anukriti%20speaker-q9PlIGbF1E33qMKYaxi95GEHe0AtTf.png",
   },
   {
     name: "Rishiraj Acharya",
     role: "ML Engineer @ IntelliTek Health",
     organization: "GDE - AI, Cloud & Kaggle",
-    image: null,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rishiraj%20speaker-AkZ0xv3mWtc9jovIpPcFP3rfaED5op.png",
   },
   {
     name: "Announcing Soon",
     role: "Stay Tuned",
     organization: "",
+    image: null,
     placeholder: true,
   },
   {
     name: "Announcing Soon",
     role: "Stay Tuned",
     organization: "",
+    image: null,
     placeholder: true,
   },
 ]
@@ -48,25 +51,34 @@ export function SpeakersSection() {
           {speakers.map((speaker, index) => (
             <StaggerItem key={index}>
               <motion.div
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 className={`group p-6 rounded-2xl border transition-all h-full ${
                   speaker.placeholder 
                     ? "bg-card/50 border-dashed border-border" 
-                    : "bg-card border-border hover:border-primary/50 hover:shadow-[0_0_30px_rgba(251,146,60,0.1)]"
+                    : "bg-card border-border hover:border-primary/50 hover:shadow-[0_0_40px_rgba(251,146,60,0.15)]"
                 }`}
               >
                 <motion.div 
                   whileHover={!speaker.placeholder ? { scale: 1.05 } : {}}
-                  className={`w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center ${
+                  className={`relative w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden ${
                     speaker.placeholder 
-                      ? "bg-secondary" 
-                      : "bg-gradient-to-br from-primary to-accent"
+                      ? "bg-secondary flex items-center justify-center" 
+                      : "ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all"
                   }`}
                 >
-                  <User className={`w-10 h-10 ${speaker.placeholder ? "text-muted-foreground" : "text-primary-foreground"}`} />
+                  {speaker.image ? (
+                    <Image
+                      src={speaker.image}
+                      alt={speaker.name}
+                      fill
+                      className="object-cover object-top"
+                    />
+                  ) : (
+                    <User className="w-16 h-16 text-muted-foreground" />
+                  )}
                 </motion.div>
                 <div className="text-center">
-                  <h3 className={`text-lg font-semibold mb-1 ${
+                  <h3 className={`text-xl font-semibold mb-2 ${
                     speaker.placeholder ? "text-muted-foreground" : "text-foreground"
                   }`}>
                     {speaker.name}
@@ -75,7 +87,7 @@ export function SpeakersSection() {
                     {speaker.role}
                   </p>
                   {speaker.organization && (
-                    <p className="text-xs text-primary">
+                    <p className="text-xs text-primary font-medium">
                       {speaker.organization}
                     </p>
                   )}

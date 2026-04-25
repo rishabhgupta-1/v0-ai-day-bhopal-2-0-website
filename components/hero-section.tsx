@@ -4,25 +4,61 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/20" />
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent z-10" />
+      </div>
       
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 opacity-30" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+      {/* Animated Grid Pattern */}
+      <div className="absolute inset-0 z-0 opacity-20" style={{
+        backgroundImage: `linear-gradient(rgba(251,146,60,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251,146,60,0.1) 1px, transparent 1px)`,
+        backgroundSize: '50px 50px',
       }} />
 
-      {/* Animated Radial Glow */}
+      {/* Animated Orbs */}
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px]" 
+        animate={{ scale: 1, opacity: 0.6 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-[150px] z-0" 
       />
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.4 }}
+        transition={{ duration: 2, delay: 0.3, ease: "easeOut" }}
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[150px] z-0" 
+      />
+
+      {/* Floating Particles */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ 
+              x: Math.random() * 100 + "%", 
+              y: "100%",
+              opacity: 0 
+            }}
+            animate={{ 
+              y: "-10%",
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "linear"
+            }}
+            className="absolute w-1 h-1 bg-primary/60 rounded-full"
+          />
+        ))}
+      </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}
@@ -30,10 +66,10 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8 backdrop-blur-sm"
         >
           <Sparkles className="w-4 h-4 text-primary" />
-          <span className="text-sm text-primary font-medium">Limited Seats Available</span>
+          <span className="text-sm text-primary font-medium">June 2025 - Save the Date</span>
         </motion.div>
 
         {/* Main Title */}
@@ -98,7 +134,7 @@ export function HeroSection() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-border text-foreground hover:bg-secondary text-base px-8 py-6 rounded-xl"
+              className="border-border text-foreground hover:bg-secondary text-base px-8 py-6 rounded-xl backdrop-blur-sm"
               asChild
             >
               <Link href="#agenda">Explore Event</Link>
@@ -119,6 +155,37 @@ export function HeroSection() {
           </span>
           <span className="hidden sm:block text-border">|</span>
           <span>Internship Opportunities Included</span>
+        </motion.div>
+
+        {/* Speaker Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
+          className="mt-16 flex items-center justify-center gap-4"
+        >
+          <div className="flex -space-x-4">
+            <div className="relative w-12 h-12 rounded-full border-2 border-background overflow-hidden">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rishiraj%20speaker-AkZ0xv3mWtc9jovIpPcFP3rfaED5op.png"
+                alt="Rishiraj Acharya"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative w-12 h-12 rounded-full border-2 border-background overflow-hidden">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/anukriti%20speaker-q9PlIGbF1E33qMKYaxi95GEHe0AtTf.png"
+                alt="Dr. Anukriti Bansal"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="w-12 h-12 rounded-full border-2 border-background bg-primary/20 flex items-center justify-center text-xs font-medium text-primary">
+              +2
+            </div>
+          </div>
+          <span className="text-sm text-muted-foreground">Expert Speakers Confirmed</span>
         </motion.div>
       </div>
     </section>
