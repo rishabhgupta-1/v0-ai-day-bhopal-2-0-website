@@ -6,6 +6,7 @@ import { ExpectSection } from "@/components/expect-section"
 import { SpeakersSection } from "@/components/speakers-section"
 import { AgendaSection } from "@/components/agenda-section"
 import { VenueSection } from "@/components/venue-section"
+import { TicketsSection } from "@/components/tickets-section"
 // import { SponsorsSection } from "@/components/sponsors-section"
 import { CTASection } from "@/components/cta-section"
 import { FAQSection } from "@/components/faq-section"
@@ -25,6 +26,7 @@ export default function Home() {
         <SpeakersSection />
         <AgendaSection />
         <VenueSection />
+        <TicketsSection />
         {/* <SponsorsSection /> */}
         <CTASection />
         <FAQSection />
