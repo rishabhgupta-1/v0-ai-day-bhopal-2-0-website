@@ -6,7 +6,7 @@ import { ExpectSection } from "@/components/expect-section"
 import { SpeakersSection } from "@/components/speakers-section"
 import { AgendaSection } from "@/components/agenda-section"
 import { VenueSection } from "@/components/venue-section"
-import { SponsorsSection } from "@/components/sponsors-section"
+// import { SponsorsSection } from "@/components/sponsors-section"
 import { CTASection } from "@/components/cta-section"
 import { FAQSection } from "@/components/faq-section"
 import { Footer } from "@/components/footer"
@@ -25,7 +25,7 @@ export default function Home() {
         <SpeakersSection />
         <AgendaSection />
         <VenueSection />
-        <SponsorsSection />
+        {/* <SponsorsSection /> */}
         <CTASection />
         <FAQSection />
       </main>
