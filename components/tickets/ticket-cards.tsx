@@ -24,7 +24,7 @@ const tickets = [
       "Access to recordings",
     ],
     icon: Ticket,
-    cta: "Buy your ticket",
+    cta: "Offer Closed",
     available: true,
   },
   {
@@ -38,9 +38,9 @@ const tickets = [
       "Full day access to all sessions",
       "Networking opportunities",
       "Lunch & refreshments",
-      "Certificate of participation",
+      "Digital Certificate of participation",
       "Access to recordings",
-      "Priority seating",
+      "Swags included",
     ],
     icon: Star,
     cta: "Buy your ticket",
@@ -55,11 +55,9 @@ const tickets = [
     color: "bg-primary",
     features: [
       "Everything in General Pass",
-      "Exclusive AI Day T-shirt",
-      "Premium swag kit",
-      "VIP networking session",
-      "Front row seating",
-      "Exclusive Discord access",
+      "Event swag included",
+      "Exclusive customized AI Day swag (Limited)",
+
     ],
     icon: Sparkles,
     cta: "Buy your ticket",
@@ -100,25 +98,24 @@ export function TicketCards() {
         <StaggerContainer className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
           {tickets.map((ticket) => (
             <StaggerItem key={ticket.id}>
-              <Card 
-                className={`relative overflow-hidden h-full flex flex-col ${
-                  ticket.featured 
-                    ? "border-primary shadow-lg shadow-primary/20" 
-                    : "border-border"
-                } bg-primary text-primary-foreground`}
+              <Card
+                className={`relative overflow-hidden h-full flex flex-col ${ticket.featured
+                  ? "border-primary shadow-lg shadow-primary/20"
+                  : "border-border"
+                  } bg-primary text-primary-foreground`}
               >
                 {ticket.featured && (
                   <div className="absolute top-4 right-4">
                     <Badge className="bg-background text-foreground">Popular</Badge>
                   </div>
                 )}
-                
+
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3 mb-2">
                     <ticket.icon className="w-6 h-6" />
                     <h3 className="text-xl font-bold">{ticket.name}</h3>
                   </div>
-                  
+
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold">₹{ticket.price}</span>
                     {ticket.discount && ticket.originalPrice && (
@@ -146,7 +143,7 @@ export function TicketCards() {
                 </CardContent>
 
                 <CardFooter>
-                  <Button 
+                  <Button
                     className="w-full bg-background text-foreground hover:bg-background/90 font-semibold"
                     size="lg"
                     asChild
@@ -163,7 +160,7 @@ export function TicketCards() {
         <FadeIn delay={0.4}>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {specialTickets.map((ticket) => (
-              <Card 
+              <Card
                 key={ticket.id}
                 className={`relative overflow-hidden ${ticket.color} ${ticket.textColor} border-border`}
               >
@@ -186,12 +183,11 @@ export function TicketCards() {
                 </CardContent>
 
                 <CardFooter>
-                  <Button 
-                    className={`w-full font-semibold ${
-                      ticket.id === "group" 
-                        ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                        : "bg-background text-foreground hover:bg-background/90"
-                    }`}
+                  <Button
+                    className={`w-full font-semibold ${ticket.id === "group"
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-background text-foreground hover:bg-background/90"
+                      }`}
                     variant={ticket.id === "group" ? "outline" : "default"}
                     size="lg"
                     asChild

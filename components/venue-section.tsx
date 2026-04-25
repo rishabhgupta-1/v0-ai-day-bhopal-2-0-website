@@ -21,12 +21,12 @@ export function VenueSection() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Venue Image */}
           <ScaleIn>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               className="relative rounded-3xl overflow-hidden border border-border aspect-video"
             >
               <Image
-                src="/images/venue.jpg"
+                src="https://lnct.ac.in/wp-content/uploads/2021/04/lnct-slider2-1536x684.jpg"
                 alt="LNCT Group of Colleges Auditorium"
                 fill
                 className="object-cover"
@@ -53,7 +53,7 @@ export function VenueSection() {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Date</p>
-                      <p className="text-lg font-semibold text-foreground">June 2025</p>
+                      <p className="text-lg font-semibold text-foreground">May 16, 2026</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -62,7 +62,7 @@ export function VenueSection() {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Time</p>
-                      <p className="text-lg font-semibold text-foreground">9:00 AM - 6:00 PM</p>
+                      <p className="text-lg font-semibold text-foreground">9:00 AM - 5:00 PM</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -80,7 +80,7 @@ export function VenueSection() {
 
               {/* Map Link */}
               <motion.a
-                href="https://maps.google.com/?q=LNCT+Bhopal"
+                href="https://share.google/tSmclfri8Dk1MKyMN"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}

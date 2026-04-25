@@ -14,7 +14,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background z-10" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent z-10" />
       </div>
-      
+
       {/* Animated Grid Pattern */}
       <div className="absolute inset-0 z-0 opacity-20" style={{
         backgroundImage: `linear-gradient(rgba(251,146,60,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251,146,60,0.1) 1px, transparent 1px)`,
@@ -22,17 +22,17 @@ export function HeroSection() {
       }} />
 
       {/* Animated Orbs */}
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.6 }}
         transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-[150px] z-0" 
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-[150px] z-0"
       />
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.4 }}
         transition={{ duration: 2, delay: 0.3, ease: "easeOut" }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[150px] z-0" 
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[150px] z-0"
       />
 
       {/* Floating Particles */}
@@ -40,12 +40,12 @@ export function HeroSection() {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            initial={{ 
-              x: Math.random() * 100 + "%", 
+            initial={{
+              x: Math.random() * 100 + "%",
               y: "100%",
-              opacity: 0 
+              opacity: 0
             }}
-            animate={{ 
+            animate={{
               y: "-10%",
               opacity: [0, 1, 0],
             }}
@@ -62,18 +62,18 @@ export function HeroSection() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8 backdrop-blur-sm"
         >
           <Sparkles className="w-4 h-4 text-primary" />
-          <span className="text-sm text-primary font-medium">June 2025 - Save the Date</span>
+          <span className="text-sm text-primary font-medium">ML Bhopal</span>
         </motion.div>
 
         {/* Main Title */}
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -81,7 +81,7 @@ export function HeroSection() {
         >
           <span className="text-foreground">AI Day</span>
           <br />
-          <motion.span 
+          <motion.span
             initial={{ backgroundPosition: "0% 50%" }}
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
@@ -92,7 +92,7 @@ export function HeroSection() {
         </motion.h1>
 
         {/* Subtitle */}
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -102,25 +102,25 @@ export function HeroSection() {
         </motion.p>
 
         {/* Description */}
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty leading-relaxed"
         >
-          Join developers, builders, and innovators for a day of learning, building, and real-world AI exposure.
+          Join developers, builders, and innovators for a day of learning, building, and real-world AI exposure on May 16th.
         </motion.p>
 
         {/* CTA Buttons */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_30px_rgba(251,146,60,0.4)] hover:shadow-[0_0_40px_rgba(251,146,60,0.6)] transition-all text-base px-8 py-6 rounded-xl"
               asChild
             >
@@ -131,9 +131,9 @@ export function HeroSection() {
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button 
-              size="lg" 
-              variant="outline" 
+            <Button
+              size="lg"
+              variant="outline"
               className="border-border text-foreground hover:bg-secondary text-base px-8 py-6 rounded-xl backdrop-blur-sm"
               asChild
             >
@@ -143,7 +143,7 @@ export function HeroSection() {
         </motion.div>
 
         {/* Trust Indicators */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.9 }}

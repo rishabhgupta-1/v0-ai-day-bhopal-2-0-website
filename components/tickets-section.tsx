@@ -22,7 +22,7 @@ const tickets = [
     cta: "Buy your ticket",
     note: "5 days left!",
     variant: "early" as const,
-    link: "https://lu.ma/aiday-bhopal",
+    link: "https://mlbhopal.tech/",
   },
   {
     name: "General Pass",
@@ -38,7 +38,7 @@ const tickets = [
     note: "Offer ends soon",
     variant: "general" as const,
     popular: true,
-    link: "https://lu.ma/aiday-bhopal",
+    link: "https://www.commudle.com/fill-form/4701",
   },
   {
     name: "Special Swag Pass",
@@ -54,7 +54,7 @@ const tickets = [
     cta: "Buy your ticket",
     note: "Offer ends in 5 days",
     variant: "swag" as const,
-    link: "https://lu.ma/aiday-bhopal",
+    link: "https://www.commudle.com/fill-form/4658",
   },
 ]
 
@@ -72,22 +72,22 @@ const specialTickets = [
     note: "Offer varies",
     variant: "group" as const,
     icon: Users,
-    link: "https://wa.me/919876543210",
+    link: "https://wa.me/+918969879979?text=Hi,%20I%20want%20to%20discuss%20regarding%20group%20passes%20for%20ai%20day%20bhopal%202.0",
   },
   {
     name: "LNCT Exclusive Form",
     price: null,
-    description: "This registration form is available only for students of LNCT Group of Colleges.",
+    description: "This form is strictly limited to LNCT (LNCT, LNCTU, LNCTS, LNCTE) students only.",
     features: [
       "Everything in General Pass",
       "Free swag included",
       "You will be required to verify your college identity",
     ],
     cta: "Buy your ticket",
-    note: "Payment for LNCT students is done by registering through this form. In case you are unable to access the form, you may buy the ticket provided.",
+    note: "Please ensure that you are eligible before proceeding with the registration.",
     variant: "lnct" as const,
     icon: GraduationCap,
-    link: "https://lu.ma/aiday-bhopal-lnct",
+    link: "https://www.commudle.com/fill-form/4700",
   },
 ]
 
@@ -121,13 +121,12 @@ export function TicketsSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative rounded-2xl p-6 flex flex-col ${
-                ticket.variant === "early"
-                  ? "bg-background border border-border"
-                  : ticket.variant === "general"
+              className={`relative rounded-2xl p-6 flex flex-col ${ticket.variant === "early"
+                ? "bg-background border border-border"
+                : ticket.variant === "general"
                   ? "bg-primary text-primary-foreground"
                   : "bg-primary text-primary-foreground"
-              }`}
+                }`}
             >
               {/* Popular Badge */}
               {ticket.popular && (
@@ -140,15 +139,13 @@ export function TicketsSection() {
 
               {/* Card Header */}
               <div className="mb-6">
-                <h3 className={`text-xl font-bold mb-2 ${
-                  ticket.variant === "early" ? "text-foreground" : ""
-                }`}>
+                <h3 className={`text-xl font-bold mb-2 ${ticket.variant === "early" ? "text-foreground" : ""
+                  }`}>
                   {ticket.name}
                 </h3>
                 <div className="flex items-baseline gap-2">
-                  <span className={`text-3xl font-bold ${
-                    ticket.variant === "early" ? "text-primary" : ""
-                  }`}>
+                  <span className={`text-3xl font-bold ${ticket.variant === "early" ? "text-primary" : ""
+                    }`}>
                     {ticket.price}
                   </span>
                   {ticket.originalPrice && (
@@ -160,9 +157,8 @@ export function TicketsSection() {
               </div>
 
               {/* Description */}
-              <p className={`text-sm mb-6 ${
-                ticket.variant === "early" ? "text-muted-foreground" : "opacity-90"
-              }`}>
+              <p className={`text-sm mb-6 ${ticket.variant === "early" ? "text-muted-foreground" : "opacity-90"
+                }`}>
                 {ticket.description}
               </p>
 
@@ -170,9 +166,8 @@ export function TicketsSection() {
               <ul className="space-y-3 mb-8 flex-grow">
                 {ticket.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                      ticket.variant === "early" ? "text-primary" : ""
-                    }`} />
+                    <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${ticket.variant === "early" ? "text-primary" : ""
+                      }`} />
                     <span className="text-sm">{feature}</span>
                   </li>
                 ))}
@@ -181,11 +176,10 @@ export function TicketsSection() {
               {/* CTA Button */}
               <Link href={ticket.link} target="_blank">
                 <Button
-                  className={`w-full font-semibold ${
-                    ticket.variant === "early"
-                      ? "bg-background border-2 border-foreground text-foreground hover:bg-foreground hover:text-background"
-                      : "bg-background text-foreground hover:bg-background/90"
-                  }`}
+                  className={`w-full font-semibold ${ticket.variant === "early"
+                    ? "bg-background border-2 border-foreground text-foreground hover:bg-foreground hover:text-background"
+                    : "bg-background text-foreground hover:bg-background/90"
+                    }`}
                   size="lg"
                 >
                   {ticket.cta}
@@ -195,9 +189,8 @@ export function TicketsSection() {
 
               {/* Note */}
               {ticket.note && (
-                <p className={`text-xs mt-4 flex items-center gap-1 ${
-                  ticket.variant === "early" ? "text-muted-foreground" : "opacity-75"
-                }`}>
+                <p className={`text-xs mt-4 flex items-center gap-1 ${ticket.variant === "early" ? "text-muted-foreground" : "opacity-75"
+                  }`}>
                   <Clock className="w-3 h-3" />
                   {ticket.note}
                 </p>
@@ -214,11 +207,10 @@ export function TicketsSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className={`relative rounded-2xl p-6 flex flex-col ${
-                ticket.variant === "lnct"
-                  ? "bg-foreground text-background"
-                  : "bg-primary text-primary-foreground"
-              }`}
+              className={`relative rounded-2xl p-6 flex flex-col ${ticket.variant === "lnct"
+                ? "bg-foreground text-background"
+                : "bg-primary text-primary-foreground"
+                }`}
             >
               {/* Card Header */}
               <div className="mb-6">
@@ -249,11 +241,10 @@ export function TicketsSection() {
               {/* CTA Button */}
               <Link href={ticket.link} target="_blank">
                 <Button
-                  className={`w-full font-semibold ${
-                    ticket.variant === "lnct"
-                      ? "bg-background text-foreground hover:bg-background/90"
-                      : "bg-background text-foreground hover:bg-background/90"
-                  }`}
+                  className={`w-full font-semibold ${ticket.variant === "lnct"
+                    ? "bg-background text-foreground hover:bg-background/90"
+                    : "bg-background text-foreground hover:bg-background/90"
+                    }`}
                   size="lg"
                   variant={ticket.variant === "group" ? "outline" : "default"}
                 >

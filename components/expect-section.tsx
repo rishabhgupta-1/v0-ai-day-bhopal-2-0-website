@@ -27,7 +27,7 @@ const expectations = [
   },
   {
     icon: Briefcase,
-    title: "Internship Opportunities",
+    title: "Guaranteed Internship Opportunities",
     description: "Exclusive internship opportunities from partner companies for top performers.",
   },
 ]

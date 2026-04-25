@@ -33,7 +33,7 @@ export function AgendaSection() {
       <div className="max-w-4xl mx-auto">
         <FadeIn className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Event Agenda
+            Tentative Event Agenda
           </h2>
           <p className="text-lg text-muted-foreground">
             A full day packed with learning and networking
@@ -52,14 +52,14 @@ export function AgendaSection() {
                   className="relative flex gap-6 p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all"
                 >
                   {/* Timeline Dot */}
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.3 }}
-                    className="hidden sm:flex absolute -left-[5px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background" 
+                    className="hidden sm:flex absolute -left-[5px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background"
                   />
-                  
+
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
