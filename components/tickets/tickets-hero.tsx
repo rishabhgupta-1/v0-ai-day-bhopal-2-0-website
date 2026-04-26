@@ -6,7 +6,7 @@ export function TicketsHero() {
   return (
     <section className="relative pt-32 pb-16 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <FadeIn className="text-center max-w-3xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
@@ -15,7 +15,7 @@ export function TicketsHero() {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground">
-            Secure your spot at Central India&apos;s biggest AI Builder event. 
+            Secure your spot at Central India&apos;s biggest AI Builder event.
             Choose the pass that works best for you.
           </p>
         </FadeIn>
@@ -27,7 +27,7 @@ export function TicketsHero() {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-primary" />
-            <span>Early bird pricing ends soon</span>
+            <span>No swags and Group passes are now available</span>
           </div>
         </FadeIn>
       </div>
