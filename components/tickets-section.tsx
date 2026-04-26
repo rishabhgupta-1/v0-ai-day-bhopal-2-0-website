@@ -90,7 +90,7 @@ const specialTickets = [
     description: "Only for LNCT students.",
     features: [
       "Everything in General",
-      "Free swag",
+      "Only Valid for LNCT College Students",
       "College ID required",
     ],
     cta: "Register Now",
@@ -107,8 +107,8 @@ export function TicketsSection() {
   const Card = ({ ticket }: any) => (
     <div
       className={`rounded-2xl p-6 flex flex-col h-full ${ticket.variant === "early"
-          ? "bg-black text-white"
-          : "bg-primary text-primary-foreground"
+        ? "bg-black text-white"
+        : "bg-primary text-primary-foreground"
         }`}
     >
       {ticket.popular && (
