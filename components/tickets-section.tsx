@@ -1,7 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Check, ArrowRight, Clock, Users, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -19,41 +18,54 @@ const tickets = [
       "Event swag included",
       "Networking with builders",
     ],
-    cta: "Buy your ticket",
-    note: "Offer Expierd",
-    variant: "early" as const,
-    link: "https://mlbhopal.tech/",
+    cta: { label: "Sold Out", disabled: true },
+    note: "Offer expired",
+    variant: "early",
+    link: "#",
+  },
+  {
+    name: "Builder Pass",
+    price: "₹179",
+    description: "Affordable access. No swag included.",
+    features: [
+      "Full event access",
+      "Lunch included",
+      "No swag included",
+      "Networking",
+    ],
+    cta: { label: "Buy your ticket", disabled: false },
+    note: "Limited seats",
+    variant: "builder",
+    link: "https://www.commudle.com/fill-form/4704",
   },
   {
     name: "General Pass",
     price: "₹349",
-    originalPrice: null,
-    description: "Standard access to the full experience.",
+    description: "Standard full experience.",
     features: [
       "Full event access",
       "Lunch included",
       "Event swag included",
     ],
-    cta: "Buy your ticket",
+    cta: { label: "Buy your ticket", disabled: false },
     note: "Offer ends soon",
-    variant: "general" as const,
+    variant: "general",
     popular: true,
     link: "https://www.commudle.com/fill-form/4701",
   },
   {
     name: "Special Swag Pass",
     price: "₹599",
-    originalPrice: null,
-    description: "For those who want more than just access.",
+    description: "Premium experience with exclusive swag.",
     features: [
-      "Everything in General Pass",
-      "Extra swag and gifts",
-      "Limited edition AI Day T-shirt",
-      "Early Entry (Limited)",
+      "Everything in General",
+      "Extra swag & gifts",
+      "Limited edition swags",
+      "Early Entry",
     ],
-    cta: "Buy your ticket",
+    cta: { label: "Buy your ticket", disabled: false },
     note: "Offer ends in 5 days",
-    variant: "swag" as const,
+    variant: "swag",
     link: "https://www.commudle.com/fill-form/4658",
   },
 ]
@@ -62,30 +74,27 @@ const specialTickets = [
   {
     name: "Group Pass",
     price: "Based on Discussion",
-    description: "Standard access with bulk pricing.",
+    description: "Bulk pricing for teams.",
     features: [
       "Full event access",
       "Lunch included",
       "Event swag included",
     ],
-    cta: "Click to Connect with Team",
-    note: "Offer varies",
-    variant: "group" as const,
+    cta: "Contact Team",
+    variant: "group",
     icon: Users,
-    link: "https://wa.me/+918969879979?text=Hi,%20I%20want%20to%20discuss%20regarding%20group%20passes%20for%20ai%20day%20bhopal%202.0",
+    link: "https://wa.me/+918969879979",
   },
   {
-    name: "LNCT Exclusive Form",
-    price: null,
-    description: "This form is strictly limited to LNCT (LNCT, LNCTU, LNCTS, LNCTE) students only.",
+    name: "LNCT Exclusive",
+    description: "Only for LNCT students.",
     features: [
-      "Everything in General Pass",
-      "Free swag included",
-      "You will be required to verify your college identity",
+      "Everything in General",
+      "Only Valid for LNCT College Students",
+      "College ID required",
     ],
-    cta: "Buy your ticket",
-    note: "Please ensure that you are eligible before proceeding with the registration.",
-    variant: "lnct" as const,
+    cta: "Register Now",
+    variant: "lnct",
     icon: GraduationCap,
     link: "https://www.commudle.com/fill-form/4700",
   },
@@ -93,174 +102,113 @@ const specialTickets = [
 
 export function TicketsSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true })
+
+  const Card = ({ ticket }: any) => (
+    <div
+      className={`rounded-2xl p-6 flex flex-col h-full ${ticket.variant === "early"
+        ? "bg-black text-white"
+        : "bg-primary text-primary-foreground"
+        }`}
+    >
+      {ticket.popular && (
+        <span className="absolute top-3 right-3 bg-black text-white text-xs px-2 py-1 rounded-full">
+          Popular
+        </span>
+      )}
+
+      <h3 className="text-xl font-bold mb-2">{ticket.name}</h3>
+
+      {ticket.price && (
+        <div className="flex gap-2 mb-4">
+          <span className="text-3xl font-bold">{ticket.price}</span>
+          {ticket.originalPrice && (
+            <span className="line-through text-sm opacity-70">
+              {ticket.originalPrice}
+            </span>
+          )}
+        </div>
+      )}
+
+      <p className="text-sm mb-6 opacity-90">{ticket.description}</p>
+
+      <ul className="space-y-2 mb-6">
+        {ticket.features.map((f: string) => (
+          <li key={f} className="flex gap-2 text-sm">
+            <Check className="w-4 h-4 mt-1" />
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-auto">
+        {ticket.cta?.disabled ? (
+          <Button disabled className="w-full bg-black text-white opacity-50">
+            {ticket.cta.label}
+          </Button>
+        ) : (
+          <Link href={ticket.link} target="_blank">
+            <Button className="w-full bg-black text-white hover:bg-black/90 cursor-pointer">
+              {ticket.cta.label || ticket.cta}
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
+        )}
+
+        {ticket.note && (
+          <p className="text-xs mt-3 flex items-center gap-1 opacity-70">
+            <Clock className="w-3 h-3" />
+            {ticket.note}
+          </p>
+        )}
+      </div>
+    </div>
+  )
 
   return (
-    <section id="tickets" className="py-24 bg-primary/10" ref={ref}>
+    <section className="py-24 bg-primary/10" ref={ref}>
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Get tickets
-          </h2>
-          <p className="text-muted-foreground max-w-2xl">
-            AI Day Bhopal 2.0 is expected to sell out — secure your spot early and be part of the builder experience.
-          </p>
-        </motion.div>
 
-        {/* Main Ticket Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {tickets.map((ticket, index) => (
-            <motion.div
-              key={ticket.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative rounded-2xl p-6 flex flex-col ${ticket.variant === "early"
-                ? "bg-background border border-border"
-                : ticket.variant === "general"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-primary text-primary-foreground"
-                }`}
-            >
-              {/* Popular Badge */}
-              {ticket.popular && (
-                <div className="absolute -top-3 right-4">
-                  <span className="bg-background text-foreground text-xs font-medium px-3 py-1 rounded-full">
-                    Popular
-                  </span>
-                </div>
-              )}
-
-              {/* Card Header */}
-              <div className="mb-6">
-                <h3 className={`text-xl font-bold mb-2 ${ticket.variant === "early" ? "text-foreground" : ""
-                  }`}>
-                  {ticket.name}
-                </h3>
-                <div className="flex items-baseline gap-2">
-                  <span className={`text-3xl font-bold ${ticket.variant === "early" ? "text-primary" : ""
-                    }`}>
-                    {ticket.price}
-                  </span>
-                  {ticket.originalPrice && (
-                    <span className="text-muted-foreground line-through text-lg">
-                      {ticket.originalPrice}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Description */}
-              <p className={`text-sm mb-6 ${ticket.variant === "early" ? "text-muted-foreground" : "opacity-90"
-                }`}>
-                {ticket.description}
-              </p>
-
-              {/* Features */}
-              <ul className="space-y-3 mb-8 flex-grow">
-                {ticket.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${ticket.variant === "early" ? "text-primary" : ""
-                      }`} />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA Button */}
-              <Link href={ticket.link} target="_blank">
-                <Button
-                  className={`w-full font-semibold ${ticket.variant === "early"
-                    ? "bg-background border-2 border-foreground text-foreground hover:bg-foreground hover:text-background"
-                    : "bg-background text-foreground hover:bg-background/90"
-                    }`}
-                  size="lg"
-                >
-                  {ticket.cta}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-
-              {/* Note */}
-              {ticket.note && (
-                <p className={`text-xs mt-4 flex items-center gap-1 ${ticket.variant === "early" ? "text-muted-foreground" : "opacity-75"
-                  }`}>
-                  <Clock className="w-3 h-3" />
-                  {ticket.note}
-                </p>
-              )}
-            </motion.div>
+        {/* ROW 1 → 3 CARDS */}
+        <div className="grid md:grid-cols-3 gap-6 mb-6">
+          {tickets.slice(0, 3).map((t, i) => (
+            <Card key={i} ticket={t} />
           ))}
         </div>
 
-        {/* Special Tickets */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {specialTickets.map((ticket, index) => (
-            <motion.div
-              key={ticket.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className={`relative rounded-2xl p-6 flex flex-col ${ticket.variant === "lnct"
-                ? "bg-foreground text-background"
-                : "bg-primary text-primary-foreground"
-                }`}
-            >
-              {/* Card Header */}
-              <div className="mb-6">
-                <div className="flex items-center gap-2 mb-2">
-                  {ticket.icon && <ticket.icon className="w-5 h-5" />}
-                  <h3 className="text-xl font-bold">{ticket.name}</h3>
-                </div>
-                {ticket.price && (
-                  <p className="text-lg font-semibold opacity-90">{ticket.price}</p>
-                )}
-              </div>
+        {/* ROW 2 → 2 CARDS */}
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <Card ticket={tickets[3]} />
+          <Card ticket={specialTickets[0]} />
+        </div>
 
-              {/* Description */}
-              <p className="text-sm mb-6 opacity-90">
-                {ticket.description}
-              </p>
+        {/* ROW 3 → FULL WIDTH */}
+        <div>
+          <div className="rounded-2xl p-8 bg-white text-black flex flex-col">
+            <div className="flex items-center gap-2 mb-3">
+              <GraduationCap className="w-5 h-5" />
+              <h3 className="text-2xl font-bold">
+                {specialTickets[1].name}
+              </h3>
+            </div>
 
-              {/* Features */}
-              <ul className="space-y-3 mb-8 flex-grow">
-                {ticket.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+            <p className="mb-6">{specialTickets[1].description}</p>
 
-              {/* CTA Button */}
-              <Link href={ticket.link} target="_blank">
-                <Button
-                  className={`w-full font-semibold ${ticket.variant === "lnct"
-                    ? "bg-background text-foreground hover:bg-background/90"
-                    : "bg-background text-foreground hover:bg-background/90"
-                    }`}
-                  size="lg"
-                  variant={ticket.variant === "group" ? "outline" : "default"}
-                >
-                  {ticket.variant === "group" && <ArrowRight className="w-4 h-4 mr-2" />}
-                  {ticket.cta}
-                </Button>
-              </Link>
+            <ul className="space-y-2 mb-6">
+              {specialTickets[1].features.map((f) => (
+                <li key={f} className="flex gap-2">
+                  <Check className="w-4 h-4 mt-1" />
+                  {f}
+                </li>
+              ))}
+            </ul>
 
-              {/* Note */}
-              {ticket.note && (
-                <p className="text-xs mt-4 opacity-75">
-                  {ticket.note}
-                </p>
-              )}
-            </motion.div>
-          ))}
+            <Link href={specialTickets[1].link} target="_blank">
+              <Button className="w-full bg-black text-white hover:bg-black/90">
+                {specialTickets[1].cta}
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
