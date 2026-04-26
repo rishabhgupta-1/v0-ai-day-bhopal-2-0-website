@@ -27,8 +27,8 @@ const expectations = [
   },
   {
     icon: Briefcase,
-    title: "Guaranteed Internship Opportunities*",
-    description: "Exclusive internship opportunities from partner companies for top performers.",
+    title: "Guaranteed Internship Opportunities",
+    description: "Exclusive internship opportunities from partner companies for AI Day Bhopal 2.0 attendees.",
   },
 ]
 
