@@ -19,7 +19,7 @@ const tickets = [
       "Event swag included",
       "Networking with builders",
     ],
-    cta: "Buy your ticket",
+    cta: "offer expired",
     note: "Offer Expierd",
     variant: "early" as const,
     link: "https://mlbhopal.tech/",
@@ -41,6 +41,25 @@ const tickets = [
     link: "https://www.commudle.com/fill-form/4701",
   },
   {
+    name: "Builder Pass",
+    price: "₹179",
+    originalPrice: null,
+    description: "Affordable access for builders. No swag included.",
+    features: [
+      "Full event access",
+      "Lunch included",
+      "No swag included",
+      "Networking with builders",
+    ],
+    cta: {
+      label: "Buy your ticket",
+      disabled: false,
+    },
+    note: "Limited seats",
+    variant: "builder" as const,
+    link: "https://www.commudle.com/fill-form/4704",
+  },
+  {
     name: "Special Swag Pass",
     price: "₹599",
     originalPrice: null,
@@ -48,7 +67,7 @@ const tickets = [
     features: [
       "Everything in General Pass",
       "Extra swag and gifts",
-      "Limited edition AI Day T-shirt",
+      "Limited edition AI Day special swags",
       "Early Entry (Limited)",
     ],
     cta: "Buy your ticket",
