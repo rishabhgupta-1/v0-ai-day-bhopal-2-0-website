@@ -64,7 +64,7 @@ const tickets = [
       "Early Entry",
     ],
     cta: { label: "Buy your ticket", disabled: false },
-    note: "Offer ends in 5 days",
+    note: "Offer ends in soon",
     variant: "swag",
     link: "https://www.commudle.com/fill-form/4658",
   },
