@@ -63,7 +63,7 @@ const tickets = [
   {
     id: "special-swag",
     name: "Special Swag Pass",
-    price: 549,
+    price: 599,
     features: [
       "Everything in General Pass",
       "Event swag included",
