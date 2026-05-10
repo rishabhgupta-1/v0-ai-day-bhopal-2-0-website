@@ -11,7 +11,42 @@ import { GoogleForDevelopers } from "@/components/google-for-developers"
 import { Countdown } from "@/components/countdown"
 import { CursorSpotlight } from "@/components/cursor-spotlight"
 import { Magnetic } from "@/components/magnetic"
+import { SponsorMarquee, type MarqueeItem } from "@/components/sponsor-marquee"
 import { EVENT } from "@/lib/event"
+import {
+  sponsors,
+  talentPartners,
+  communityPartners,
+} from "@/lib/sponsors"
+
+/**
+ * Compose a single flat list for the hero marquee:
+ *   Gold sponsor(s) → Talent Partners → Community Partners.
+ *
+ * Google for Developers already has its own "Backed by" pill in the trust
+ * strip, so we don't duplicate it in the marquee.
+ */
+const heroMarqueeItems: MarqueeItem[] = [
+  ...sponsors.gold.map((s) => ({
+    name: s.name,
+    logo: s.logo,
+    url: s.url,
+    tileVariant:
+      s.name === "Klariqo" ? ("dark" as const) : ("light" as const),
+  })),
+  ...talentPartners.map((p) => ({
+    name: p.name,
+    logo: p.logo,
+    url: p.url,
+    tileVariant: p.tileVariant ?? ("light" as const),
+  })),
+  ...communityPartners.map((p) => ({
+    name: p.name,
+    logo: p.logo,
+    url: p.url,
+    tileVariant: p.tileVariant ?? ("light" as const),
+  })),
+]
 
 /**
  * Deterministic pseudo-random sequence so server + client render the
@@ -235,7 +270,7 @@ export function HeroSection() {
             <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
               Backed by
             </span>
-            <GoogleForDevelopers className="h-[14px] w-auto text-foreground/85" />
+            <GoogleForDevelopers className="h-[14px] w-auto opacity-85" />
           </span>
         </motion.div>
 
@@ -275,6 +310,19 @@ export function HeroSection() {
             </span>{" "}
             Confirmed
           </span>
+        </motion.div>
+
+        {/* ── Sponsor / Partner marquee ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="mt-14 -mx-4 sm:-mx-6 lg:-mx-8"
+        >
+          <SponsorMarquee
+            items={heroMarqueeItems}
+            label="Sponsors & partners"
+          />
         </motion.div>
       </div>
     </section>

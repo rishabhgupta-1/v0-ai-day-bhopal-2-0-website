@@ -27,6 +27,7 @@ export const EVENT = {
     email: "contact@mlbhopal.tech",
     phone: "+91 89698 79979",
     whatsapp: "https://wa.me/+918969879979",
+    whatsappNumber: "918969879979",
   },
   links: {
     parent: "https://mlbhopal.tech",
@@ -37,4 +38,22 @@ export const EVENT = {
     youtube: "https://youtube.com/@mlbhopal",
     github: "https://github.com/MLBhopal",
   },
+} as const
+
+/**
+ * Build a WhatsApp link with a pre-filled message.
+ * Uses wa.me which auto-encodes whitespace and most punctuation correctly.
+ */
+export function whatsappLink(message: string): string {
+  return `https://wa.me/${EVENT.contact.whatsappNumber}?text=${encodeURIComponent(
+    message,
+  )}`
+}
+
+/** Pre-built links for common CTAs. */
+export const WHATSAPP_LINKS = {
+  general: EVENT.contact.whatsapp,
+  sponsor: whatsappLink(
+    `Hi ML Bhopal team, I'd like to chat about sponsoring AI Day Bhopal 2.0 (${EVENT.dateLabel}). Could we set up a quick call?`,
+  ),
 } as const

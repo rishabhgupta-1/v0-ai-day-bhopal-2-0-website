@@ -98,6 +98,15 @@ html {
   animation: amber-shimmer 6s linear infinite;
 }
 
+@keyframes sponsor-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-sponsor-marquee {
+  animation: sponsor-marquee 50s linear infinite;
+}
+
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';

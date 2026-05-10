@@ -178,7 +178,7 @@ export function Footer() {
               <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground/70">
                 Backed by
               </span>
-              <GoogleForDevelopers className="h-5 w-auto text-foreground/85" />
+              <GoogleForDevelopers className="h-5 w-auto opacity-85" />
             </div>
           </div>
         </FadeIn>

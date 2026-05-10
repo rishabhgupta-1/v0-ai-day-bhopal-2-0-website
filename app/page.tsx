@@ -30,10 +30,10 @@ export default function Home() {
         <ExpectSection />
         <SpeakersSection />
         <AgendaSection />
+        <SponsorsSection />
+        <TicketsSection />
         <RecapSection />
         <VenueSection />
-        <TicketsSection />
-        <SponsorsSection />
         <CTASection />
         <FAQSection />
       </main>
