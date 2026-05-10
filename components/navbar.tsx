@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Logo } from "@/components/logo"
 import { Magnetic } from "@/components/magnetic"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const navLinks = [
   { hash: "#speakers", label: "Speakers" },
@@ -81,6 +82,13 @@ export function Navbar() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.25, duration: 0.3 }}
+            >
+              <ThemeToggle />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.3 }}
             >
               <Button
@@ -110,16 +118,19 @@ export function Navbar() {
             </Magnetic>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="md:hidden text-foreground p-2 rounded-lg hover:bg-secondary/60 transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
-          </motion.button>
+          {/* Mobile actions: theme toggle + menu */}
+          <div className="md:hidden flex items-center gap-1">
+            <ThemeToggle />
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              className="text-foreground p-2 rounded-lg hover:bg-secondary/60 transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </motion.button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

@@ -67,7 +67,9 @@ export function SponsorMarquee({
               aria-label={item.name}
               className={cn(
                 "shrink-0 inline-flex items-center gap-2.5 rounded-full border h-12 pl-1.5 pr-4",
-                "border-white/[0.10] bg-white/[0.03] backdrop-blur-sm",
+                // Theme-adaptive surface: subtle on light, subtle on dark.
+                "border-border/70 bg-card/60 backdrop-blur-sm",
+                "dark:border-white/[0.10] dark:bg-white/[0.03]",
                 "hover:border-primary/50 hover:bg-primary/5 transition-colors",
               )}
             >

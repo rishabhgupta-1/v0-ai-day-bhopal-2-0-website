@@ -7,7 +7,14 @@ export type PartnerLink = {
 
 export type Sponsor = {
   name: string
+  /** Default logo (designed for dark surfaces). Path under /public/. */
   logo?: string
+  /**
+   * Optional light-surface variant. When provided, the sponsor card swaps to
+   * this asset in light mode. Useful for white-on-dark logos that need a
+   * dark-on-light counterpart.
+   */
+  logoLight?: string
   tagline?: string
   url?: string
   links?: PartnerLink[]
@@ -40,6 +47,7 @@ export const sponsors: Record<SponsorTier, Sponsor[]> = {
     {
       name: "Klariqo",
       logo: "/sponsors/klariqo.png",
+      logoLight: "/sponsors/klariqo-black.png",
       tagline:
         "Voice AI infrastructure for enterprise call centers and BPOs — AI agents that qualify and warm-transfer leads so your closers only talk to ready-to-buy prospects.",
       url: "https://klariqo.com",

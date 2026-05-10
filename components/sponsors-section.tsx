@@ -135,7 +135,8 @@ function PartnerPill({
         <button
           className={cn(
             "group inline-flex items-center gap-3.5 rounded-full border font-semibold transition-all duration-200",
-            "border-white/[0.10] bg-white/[0.03] backdrop-blur-sm",
+            "border-border/70 bg-card/60 backdrop-blur-sm",
+            "dark:border-white/[0.10] dark:bg-white/[0.03]",
             "hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
             dims.pill
@@ -337,7 +338,7 @@ export function SponsorsSection() {
                           href={s.url ?? "#"}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex group/logo relative px-6 py-4 mb-6"
+                          className="inline-flex group/logo relative mb-6"
                         >
                           <div
                             className="absolute inset-0 -m-6 blur-3xl opacity-30 group-hover/logo:opacity-50 transition-opacity duration-500"
@@ -348,13 +349,27 @@ export function SponsorsSection() {
                             aria-hidden
                           />
                           {s.logo ? (
-                            <Image
-                              src={s.logo}
-                              alt={s.name}
-                              width={1024}
-                              height={215}
-                              className="relative h-14 sm:h-20 w-auto object-contain group-hover/logo:scale-[1.03] transition-transform duration-300"
-                            />
+                            <span className="relative inline-flex items-center justify-center px-2 py-2 group-hover/logo:scale-[1.03] transition-transform duration-300">
+                              {/* Dark mode: white-lockup on the gold card */}
+                              <Image
+                                src={s.logo}
+                                alt={s.name}
+                                width={1024}
+                                height={215}
+                                className="h-14 sm:h-20 w-auto object-contain hidden dark:block"
+                              />
+                              {/* Light mode: black-lockup on the gold card */}
+                              {s.logoLight && (
+                                <Image
+                                  src={s.logoLight}
+                                  alt=""
+                                  aria-hidden
+                                  width={1024}
+                                  height={215}
+                                  className="h-14 sm:h-20 w-auto object-contain block dark:hidden"
+                                />
+                              )}
+                            </span>
                           ) : (
                             <span className="relative text-4xl font-bold text-foreground">
                               {s.name}

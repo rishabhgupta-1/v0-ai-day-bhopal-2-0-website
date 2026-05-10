@@ -157,7 +157,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-xl sm:text-2xl md:text-3xl text-foreground/90 font-medium mb-4"
+          className="text-lg sm:text-2xl md:text-3xl text-foreground/90 font-medium mb-4 px-2 text-balance"
         >
           {EVENT.tagline}
         </motion.p>
@@ -167,7 +167,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-[36ch] sm:max-w-xl md:max-w-2xl mx-auto mb-10 leading-relaxed px-2 text-pretty"
         >
           {EVENT.description}
         </motion.p>
@@ -242,44 +242,49 @@ export function HeroSection() {
           </Magnetic>
         </motion.div>
 
-        {/* Trust strip */}
+        {/* Trust strip — stacks on mobile, single row from sm: up.
+            Each row centers its own contents; "Backed by Google for Developers"
+            always lives on its own line on mobile so the lockup never gets clipped. */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.85 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground"
+          className="mt-10 text-sm text-muted-foreground"
         >
-          <span className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-70 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-y-2 sm:gap-x-6 sm:gap-y-3">
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-70 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+              </span>
+              <span className="text-foreground/80">
+                <span className="font-semibold text-foreground">500+</span>{" "}
+                Developers Joining
+              </span>
             </span>
-            <span className="text-foreground/80">
-              <span className="font-semibold text-foreground">500+</span>{" "}
-              Developers Joining
+            <span className="hidden sm:block text-border/80" aria-hidden>
+              |
             </span>
-          </span>
-          <span className="hidden sm:block text-border/80" aria-hidden>
-            |
-          </span>
-          <span>Guaranteed Internships</span>
-          <span className="hidden sm:block text-border/80" aria-hidden>
-            |
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
-              Backed by
+            <span>Guaranteed Internships</span>
+            <span className="hidden sm:block text-border/80" aria-hidden>
+              |
             </span>
-            <GoogleForDevelopers className="h-[14px] w-auto opacity-85" />
-          </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+                Backed by
+              </span>
+              <GoogleForDevelopers className="h-[14px] w-auto opacity-85" />
+            </span>
+          </div>
         </motion.div>
 
-        {/* Speaker preview */}
+        {/* Speaker preview — stacks vertically on tiny screens so the avatars
+            and label never crowd each other off the edge. */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1 }}
-          className="mt-14 flex flex-wrap items-center justify-center gap-4"
+          className="mt-14 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4"
         >
           <div className="flex -space-x-3">
             <div className="relative w-11 h-11 rounded-full border-2 border-background overflow-hidden ring-1 ring-primary/30">
@@ -304,7 +309,7 @@ export function HeroSection() {
               +2
             </div>
           </div>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground text-center">
             <span className="text-foreground font-medium">
               Expert Speakers
             </span>{" "}
