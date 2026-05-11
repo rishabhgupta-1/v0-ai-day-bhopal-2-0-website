@@ -22,8 +22,14 @@ export type Sponsor = {
 
 export type Partner = {
   name: string
-  /** Path under /public/sponsors/ */
+  /** Default logo (designed for dark surfaces). Path under /public/. */
   logo?: string
+  /**
+   * Optional light-surface variant. When provided, the partner pill swaps
+   * to this asset in light mode. Lets brands ship "white-on-dark" + a
+   * matching "dark-on-light" variant without needing a dark tile.
+   */
+  logoLight?: string
   description?: string
   url?: string
   links?: PartnerLink[]
@@ -31,6 +37,7 @@ export type Partner = {
    * Background tile color when displayed in a pill.
    * - "light" (default): white tile — works for dark/colored logos
    * - "dark": transparent/dark tile — required when the logo itself is white
+   *   AND no `logoLight` variant is supplied.
    */
   tileVariant?: "light" | "dark"
 }
@@ -57,7 +64,21 @@ export const sponsors: Record<SponsorTier, Sponsor[]> = {
       ],
     },
   ],
-  silver: [],
+  silver: [
+    {
+      name: "Orange City Trekkers",
+      logo: "/sponsors/oct.png",
+      tagline:
+        "Your gateway to unforgettable outdoor adventures — guided treks, hiking expeditions, and adventure camps across Maharashtra and beyond.",
+      url: "https://www.instagram.com/orangecitytrekkers/",
+      links: [
+        {
+          label: "Instagram",
+          url: "https://www.instagram.com/orangecitytrekkers/",
+        },
+      ],
+    },
+  ],
 }
 
 export const talentPartners: Partner[] = [
@@ -121,6 +142,22 @@ export const talentPartners: Partner[] = [
         url: "https://www.linkedin.com/company/klariqo/",
       },
       { label: "Twitter", url: "https://x.com/klariqoofficial" },
+    ],
+  },
+  {
+    name: "PixelPandas",
+    logo: "/sponsors/pixelpandas.png",
+    logoLight: "/sponsors/pixelpandas-black.png",
+    description:
+      "A design-led digital studio crafting modern websites, product experiences, and brand identities for startups and growing businesses — blending clean UI/UX, strategic thinking, and storytelling into engaging, conversion-focused experiences.",
+    url: "https://pixelpandas.in",
+    links: [
+      {
+        label: "LinkedIn",
+        url: "https://in.linkedin.com/company/pixelpandas",
+      },
+      { label: "Twitter", url: "https://www.x.com/pixelpandas_in/" },
+      { label: "Instagram", url: "https://www.instagram.com/pixelpandas.in/" },
     ],
   },
   {

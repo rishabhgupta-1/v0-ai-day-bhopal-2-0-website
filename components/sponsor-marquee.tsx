@@ -5,12 +5,18 @@ import { cn } from "@/lib/utils"
 
 export type MarqueeItem = {
   name: string
-  /** Path under /public/ */
+  /** Default logo asset. Path under /public/. */
   logo?: string
+  /**
+   * Optional light-surface variant. When provided, the marquee swaps to it
+   * in light mode so brands shipping both a white-on-dark and dark-on-light
+   * lockup can render correctly in either theme without needing a dark tile.
+   */
+  logoLight?: string
   url?: string
   /**
-   * Tile background. "dark" is needed when the logo itself is white
-   * (e.g. Klariqo white-on-transparent, GfD white lockup).
+   * Tile background. "dark" is needed when the logo itself is white AND no
+   * `logoLight` variant is supplied (e.g. Klariqo white-on-transparent).
    */
   tileVariant?: "light" | "dark"
 }
@@ -77,17 +83,39 @@ export function SponsorMarquee({
                 <span
                   className={cn(
                     "relative flex-shrink-0 rounded-full overflow-hidden h-9 w-9",
-                    item.tileVariant === "dark"
-                      ? "bg-neutral-900 ring-1 ring-white/10"
-                      : "bg-white ring-1 ring-black/5",
+                    // With a themed logo pair, the tile flips per theme so
+                    // each variant reads on its own surface.
+                    item.logoLight
+                      ? "bg-white ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10"
+                      : item.tileVariant === "dark"
+                        ? "bg-neutral-900 ring-1 ring-white/10"
+                        : "bg-white ring-1 ring-black/5",
                   )}
                 >
-                  <Image
-                    src={item.logo}
-                    alt={item.name}
-                    fill
-                    className="object-contain p-1"
-                  />
+                  {item.logoLight ? (
+                    <>
+                      <Image
+                        src={item.logo}
+                        alt={item.name}
+                        fill
+                        className="object-contain p-1 hidden dark:block"
+                      />
+                      <Image
+                        src={item.logoLight}
+                        alt=""
+                        aria-hidden
+                        fill
+                        className="object-contain p-1 block dark:hidden"
+                      />
+                    </>
+                  ) : (
+                    <Image
+                      src={item.logo}
+                      alt={item.name}
+                      fill
+                      className="object-contain p-1"
+                    />
+                  )}
                 </span>
               )}
               <span className="text-sm font-medium text-foreground/85">
