@@ -1,75 +1,50 @@
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 /**
- * Google for Developers wordmark.
+ * Official Google for Developers lockup, theme-aware.
  *
- * Inline SVG so it stays crisp at every size and inherits a
- * `currentColor`-driven secondary tone for "for Developers" — meaning
- * dropping it on dark or light surfaces "just works".
+ * Two PNG assets are stacked and toggled with `dark:` visibility classes:
+ * - Light mode: `/gfd-logo-color.png` — official 4-colour Google + grey
+ *   "for Developers" — designed for white surfaces.
+ * - Dark mode:  `/gfd-logo-white.png` — solid white lockup for dark surfaces.
  *
- * Brand colors are pinned to the official Google palette:
- *   blue   #4285F4
- *   red    #EA4335
- *   yellow #FBBC05
- *   green  #34A853
+ * Toggling via CSS (no `useTheme`) means both renders are server-safe and
+ * there's no flash on theme change.
+ *
+ * Apply height via className (e.g. `h-5`, `h-[14px]`) — width scales
+ * automatically. Natural asset size: 1024 × 111 px (ratio ≈ 9.2 : 1).
  */
 export function GoogleForDevelopers({
   className,
   title = "Google for Developers",
-  /** Force "for Developers" + divider color. Defaults to inherited text color. */
-  secondaryColor,
 }: {
   className?: string
   title?: string
-  secondaryColor?: string
 }) {
   return (
-    <svg
+    <span
       role="img"
       aria-label={title}
-      viewBox="0 0 248 28"
-      className={cn("h-5 w-auto", className)}
+      className={cn("inline-flex items-center", className)}
     >
-      <title>{title}</title>
-
-      {/* Google */}
-      <g
-        fontFamily='"Google Sans", "Inter", system-ui, sans-serif'
-        fontSize="24"
-        fontWeight="500"
-        textAnchor="start"
-        style={{ letterSpacing: "-0.5px" }}
-      >
-        <text x="0" y="22" fill="#4285F4">G</text>
-        <text x="17" y="22" fill="#EA4335">o</text>
-        <text x="32" y="22" fill="#FBBC05">o</text>
-        <text x="48" y="22" fill="#4285F4">g</text>
-        <text x="63" y="22" fill="#34A853">l</text>
-        <text x="70" y="22" fill="#EA4335">e</text>
-      </g>
-
-      {/* divider */}
-      <line
-        x1="92"
-        y1="6"
-        x2="92"
-        y2="24"
-        stroke={secondaryColor ?? "currentColor"}
-        strokeWidth="1"
-        opacity="0.55"
+      {/* Light mode: colour lockup */}
+      <Image
+        src="/gfd-logo-color.png"
+        alt={title}
+        width={1024}
+        height={111}
+        className="h-full w-auto object-contain block dark:hidden"
       />
-
-      {/* for Developers */}
-      <text
-        x="100"
-        y="22"
-        fontFamily='"Google Sans", "Inter", system-ui, sans-serif'
-        fontSize="20"
-        fontWeight="400"
-        fill={secondaryColor ?? "currentColor"}
-      >
-        for Developers
-      </text>
-    </svg>
+      {/* Dark mode: white lockup */}
+      <Image
+        src="/gfd-logo-white.png"
+        alt=""
+        aria-hidden
+        width={1024}
+        height={111}
+        className="h-full w-auto object-contain hidden dark:block"
+      />
+    </span>
   )
 }
