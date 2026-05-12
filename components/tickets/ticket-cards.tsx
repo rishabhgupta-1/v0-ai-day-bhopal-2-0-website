@@ -1,257 +1,251 @@
 "use client"
 
+import {
+  Check,
+  ArrowRight,
+  Clock,
+  Users,
+  GraduationCap,
+  Ticket,
+  Sparkles,
+  Star,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { StaggerContainer, StaggerItem, FadeIn } from "@/components/motion"
-import { Check, Users, GraduationCap, Sparkles, Ticket, Star } from "lucide-react"
 import Link from "next/link"
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion"
 
-/* ================= DATA ================= */
+type Tier = {
+  name: string
+  price?: string
+  originalPrice?: string
+  description: string
+  features: string[]
+  cta: string
+  link: string
+  disabled?: boolean
+  popular?: boolean
+  note?: string
+  icon: React.ComponentType<{ className?: string }>
+  variant: "standard" | "popular" | "premium"
+}
 
-const tickets = [
+const tickets: Tier[] = [
   {
-    id: "early-bird",
-    name: "Early Bird Pass",
-    originalPrice: 349,
-    price: 249,
-    discount: true,
-    featured: false,
-    features: [
-      "Full day access to all sessions",
-      "Networking opportunities",
-      "Lunch & refreshments",
-      "Event swag included",
-      "Networking with builders",
-    ],
-    icon: Ticket,
-    cta: "Offer Closed",
-    disabled: true,
-    link: "#",
-  },
-  {
-    id: "builder",
     name: "Builder Pass",
-    price: 179,
+    price: "₹179",
+    description: "Affordable access. No swag included.",
     features: [
       "Full event access",
       "Lunch included",
       "No swag included",
       "Networking with builders",
     ],
-    icon: Ticket,
     cta: "Buy your ticket",
     link: "https://www.commudle.com/fill-form/4704",
+    note: "Limited seats",
+    icon: Ticket,
+    variant: "standard",
   },
   {
-    id: "general",
     name: "General Pass",
-    price: 349,
-    featured: true,
+    price: "₹349",
+    description: "Standard full experience.",
     features: [
       "Full day access",
       "Networking opportunities",
       "Lunch & refreshments",
-      "Certificate",
-      "Recordings",
-      "Swags included",
+      "Certificate of participation",
+      "Swag included",
     ],
-    icon: Star,
     cta: "Buy your ticket",
     link: "https://www.commudle.com/fill-form/4701",
+    popular: true,
+    note: "Offer ends soon",
+    icon: Star,
+    variant: "popular",
   },
   {
-    id: "special-swag",
     name: "Special Swag Pass",
-    price: 599,
+    price: "₹599",
+    description: "Premium experience with exclusive swag.",
     features: [
       "Everything in General Pass",
-      "Event swag included",
-      "Exclusive customized swag",
+      "Limited edition swag",
+      "Extra gifts",
+      "Early entry",
     ],
-    icon: Sparkles,
     cta: "Buy your ticket",
     link: "https://www.commudle.com/fill-form/4658",
+    note: "Limited drop",
+    icon: Sparkles,
+    variant: "premium",
   },
 ]
 
-const groupTicket = {
+const groupTicket: Tier = {
   name: "Group Pass",
-  description: "Book 5+ tickets and get discounts.",
+  description:
+    "Bring 5+ builders. We'll work out a deal — custom invoicing for teams.",
+  features: [
+    "Full event access",
+    "Lunch included",
+    "Event swag included",
+    "Custom invoicing for teams",
+  ],
+  cta: "Contact Team",
   link: "https://wa.me/+918969879979",
+  icon: Users,
+  variant: "standard",
 }
 
-const lnctTicket = {
-  name: "LNCT Exclusive Form",
-  subtitle: "For LNCT Students Only",
-  description: "Special pricing for LNCT students. Valid college ID required.",
+const lnctTicket: Tier = {
+  name: "LNCT Exclusive",
+  description:
+    "Special pricing for LNCT students. Valid college ID required at entry.",
+  features: [
+    "Everything in General Pass",
+    "Validated against LNCT student list",
+    "College ID required at entry",
+  ],
+  cta: "Register now",
   link: "https://www.commudle.com/fill-form/4700",
+  icon: GraduationCap,
+  variant: "standard",
 }
 
-/* ================= COMPONENT ================= */
-
-export function TicketCards() {
-  const mainTickets = tickets.slice(0, 3)
-  const swagTicket = tickets.find(t => t.id === "special-swag")
-
-  const renderButton = (ticket: any) => {
-    if (ticket.disabled) {
-      return (
-        <Button disabled className="w-full bg-black text-white opacity-50 cursor-not-allowed">
-          {ticket.cta}
-        </Button>
-      )
-    }
-
-    return (
-      <Link href={ticket.link} target="_blank">
-        <Button className="w-full bg-black text-white hover:bg-black/90 cursor-pointer">
-          {ticket.cta}
-        </Button>
-      </Link>
-    )
+function variantStyle(variant: Tier["variant"]) {
+  switch (variant) {
+    case "popular":
+      return "bg-card border-primary/50 shadow-[0_0_40px_rgba(245,158,11,0.18)]"
+    case "premium":
+      return "bg-gradient-to-br from-primary/15 via-card to-card border-primary/30"
+    default:
+      return "bg-card/70 border-border"
   }
+}
+
+function PriceBlock({ ticket }: { ticket: Tier }) {
+  if (!ticket.price) return null
+  return (
+    <div className="flex items-baseline gap-2">
+      <span className="text-3xl sm:text-4xl font-bold text-foreground tabular-nums">
+        {ticket.price}
+      </span>
+      {ticket.originalPrice && (
+        <span className="text-base line-through text-muted-foreground/70 tabular-nums">
+          {ticket.originalPrice}
+        </span>
+      )}
+    </div>
+  )
+}
+
+function TicketCard({ ticket }: { ticket: Tier }) {
+  const isDisabled = ticket.disabled
+  const Icon = ticket.icon
 
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4">
+    <div
+      className={`relative h-full p-6 rounded-2xl border backdrop-blur-sm flex flex-col transition-all duration-300 ${variantStyle(
+        ticket.variant
+      )} ${isDisabled ? "opacity-70" : "hover:-translate-y-0.5"}`}
+    >
+      {ticket.popular && (
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.2em] bg-primary text-primary-foreground shadow-[0_0_24px_rgba(245,158,11,0.5)]">
+          Most Popular
+        </span>
+      )}
 
-        {/* ROW 1 */}
-        <StaggerContainer className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
-          {mainTickets.map((ticket) => (
-            <StaggerItem key={ticket.id}>
-              <Card className="relative h-full flex flex-col bg-primary text-primary-foreground">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+          <Icon className="w-4 h-4 text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold text-foreground">
+          {ticket.name}
+        </h3>
+      </div>
 
-                {ticket.featured && (
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-background text-foreground">Popular</Badge>
-                  </div>
-                )}
+      <PriceBlock ticket={ticket} />
 
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <ticket.icon className="w-6 h-6" />
-                    <h3 className="text-xl font-bold">{ticket.name}</h3>
-                  </div>
+      <p className="mt-3 text-sm text-muted-foreground">
+        {ticket.description}
+      </p>
 
-                  <div className="flex gap-2 items-baseline">
-                    <span className="text-4xl font-bold">₹{ticket.price}</span>
-                    {ticket.discount && (
-                      <span className="line-through opacity-60">₹{ticket.originalPrice}</span>
-                    )}
-                  </div>
+      <ul className="mt-5 mb-6 space-y-2.5">
+        {ticket.features.map((f) => (
+          <li
+            key={f}
+            className="flex items-start gap-2 text-sm text-foreground/85"
+          >
+            <Check className="shrink-0 w-4 h-4 mt-0.5 text-primary" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
 
-                  {ticket.discount && (
-                    <Badge className="mt-2 bg-background/20 text-white">
-                      Limited Time Offer
-                    </Badge>
-                  )}
-                </CardHeader>
+      <div className="mt-auto">
+        {isDisabled ? (
+          <Button
+            disabled
+            className="w-full bg-secondary text-muted-foreground cursor-not-allowed"
+          >
+            {ticket.cta}
+          </Button>
+        ) : (
+          <Button
+            asChild
+            className={`w-full font-semibold ${
+              ticket.popular
+                ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_24px_rgba(245,158,11,0.3)]"
+                : "bg-foreground text-background hover:bg-foreground/90"
+            }`}
+          >
+            <Link href={ticket.link} target="_blank" rel="noopener noreferrer">
+              {ticket.cta}
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </Button>
+        )}
 
-                <CardContent className="flex-1">
-                  <ul className="space-y-3">
-                    {ticket.features.map((f, i) => (
-                      <li key={i} className="flex gap-3 text-sm">
-                        <Check className="w-5 h-5 mt-1" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
+        {ticket.note && (
+          <p className="mt-3 text-xs text-muted-foreground flex items-center gap-1.5">
+            <Clock className="w-3 h-3" />
+            {ticket.note}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+}
 
-                <CardFooter>{renderButton(ticket)}</CardFooter>
-              </Card>
+export function TicketCards() {
+  return (
+    <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+        aria-hidden
+      />
+
+      <div className="relative max-w-6xl mx-auto">
+        {/* Main 3 cards */}
+        <StaggerContainer
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 max-w-5xl mx-auto"
+          staggerDelay={0.06}
+        >
+          {tickets.map((t) => (
+            <StaggerItem key={t.name}>
+              <TicketCard ticket={t} />
             </StaggerItem>
           ))}
         </StaggerContainer>
 
-        {/* ROW 2 */}
-        <FadeIn delay={0.3}>
-          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-8">
-
-            {/* Swag */}
-            {swagTicket && (
-              <Card className="bg-primary text-primary-foreground flex flex-col">
-                <CardHeader>
-                  <div className="flex items-center gap-3">
-                    <Sparkles className="w-6 h-6" />
-                    <h3 className="text-xl font-bold">{swagTicket.name}</h3>
-                  </div>
-                  <p className="text-3xl font-bold mt-2">₹{swagTicket.price}</p>
-                </CardHeader>
-
-                <CardContent className="flex-1">
-                  <ul className="space-y-2 text-sm">
-                    {swagTicket.features.map((f, i) => (
-                      <li key={i}>✔ {f}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-
-                <CardFooter>
-                  <Link href={swagTicket.link} target="_blank">
-                    <Button className="w-full bg-black text-white hover:bg-black/90">
-                      {swagTicket.cta}
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            )}
-
-            {/* Group */}
-            <Card className="bg-card text-foreground flex flex-col">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Users className="w-6 h-6" />
-                  <h3 className="text-xl font-bold">{groupTicket.name}</h3>
-                </div>
-              </CardHeader>
-
-              <CardContent className="flex-1">
-                <p className="text-sm text-muted-foreground">
-                  {groupTicket.description}
-                </p>
-              </CardContent>
-
-              <CardFooter>
-                <Link href={groupTicket.link} target="_blank">
-                  <Button className="w-full bg-black text-white hover:bg-black/90">
-                    Contact Team
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-
+        {/* Group + LNCT row */}
+        <FadeIn delay={0.2}>
+          <div className="grid md:grid-cols-2 gap-5">
+            <TicketCard ticket={groupTicket} />
+            <TicketCard ticket={lnctTicket} />
           </div>
         </FadeIn>
-
-        {/* ROW 3 */}
-        <FadeIn delay={0.5}>
-          <div className="max-w-6xl mx-auto">
-            <Card className="bg-white text-black">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <GraduationCap className="w-6 h-6" />
-                  <h3 className="text-xl font-bold">{lnctTicket.name}</h3>
-                </div>
-                <p className="text-sm">{lnctTicket.subtitle}</p>
-              </CardHeader>
-
-              <CardContent>
-                <p className="text-sm">{lnctTicket.description}</p>
-              </CardContent>
-
-              <CardFooter>
-                <Link href={lnctTicket.link} target="_blank">
-                  <Button className="w-full bg-black text-white hover:bg-black/90">
-                    Buy your ticket
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          </div>
-        </FadeIn>
-
       </div>
     </section>
   )
