@@ -170,10 +170,27 @@ export function Footer() {
 
         <FadeIn delay={0.15}>
           <div className="mt-12 pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} ML Bhopal · AI Day Bhopal 2.0 ·
-              All rights reserved.
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+              <p className="text-xs text-muted-foreground">
+                © {new Date().getFullYear()} ML Bhopal · AI Day Bhopal 2.0 ·
+                All rights reserved.
+              </p>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Link
+                  href="/terms"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Terms &amp; Conditions
+                </Link>
+                <span aria-hidden className="opacity-60">·</span>
+                <Link
+                  href="/privacy"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </div>
+            </div>
             <div className="flex items-center gap-3">
               <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground/70">
                 Backed by

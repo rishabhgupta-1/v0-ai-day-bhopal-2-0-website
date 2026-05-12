@@ -137,7 +137,7 @@ export function RecapSection() {
             ))}
 
             <Link
-              href="https://mlbhopal.tech"
+              href="https://www.commudle.com/communities/ml-bhopal/events/ai-day-bhopal-build-with-ai"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl border border-primary/40 text-sm font-semibold text-primary hover:bg-primary/10 transition-colors"
