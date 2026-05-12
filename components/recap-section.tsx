@@ -11,9 +11,6 @@ type RecapPhoto = {
   alt: string
   eyebrow: string
   caption: string
-  subtitle?: string
-  /** Grid placement (mobile is always single column). */
-  className: string
   /** next/image `sizes` hint so responsive variants are right-sized. */
   sizes: string
   priority?: boolean
@@ -22,20 +19,17 @@ type RecapPhoto = {
 const photos: RecapPhoto[] = [
   {
     src: "/recap/anubhav-talk.jpg",
-    alt: "Anubhav at the podium during his lightning talk at AI Day Bhopal 2025",
-    eyebrow: "Lightning talk",
-    caption: "Anubhav · five minutes, zero slides wasted.",
-    className: "sm:col-span-7",
-    sizes: "(min-width: 1024px) 38vw, (min-width: 640px) 58vw, 100vw",
+    alt: "Anubhav running his full session on RAG at AI Day Bhopal 2025",
+    eyebrow: "Full session",
+    caption: "Anubhav · a full session on RAG.",
+    sizes: "(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 100vw",
     priority: true,
   },
   {
-    src: "/recap/rishabh-keynote.jpg",
-    alt: "Rishabh Gupta delivering the keynote at AI Day Bhopal 2025",
-    eyebrow: "Keynote",
-    caption: "Rishabh Gupta",
-    subtitle: "Organizer, ML Bhopal",
-    className: "sm:col-span-5 sm:row-span-2",
+    src: "/recap/full-house.jpg",
+    alt: "Wide group photo of the full auditorium at AI Day Bhopal 2025",
+    eyebrow: "Group photo",
+    caption: "Full house. Last edition.",
     sizes: "(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 100vw",
   },
   {
@@ -43,16 +37,7 @@ const photos: RecapPhoto[] = [
     alt: "Live Vertex AI walkthrough on stage at AI Day Bhopal 2025",
     eyebrow: "Live walkthrough",
     caption: "Vertex AI on the big screen — built live.",
-    className: "sm:col-span-7",
-    sizes: "(min-width: 1024px) 38vw, (min-width: 640px) 58vw, 100vw",
-  },
-  {
-    src: "/recap/full-house.jpg",
-    alt: "Wide group photo of the full auditorium at AI Day Bhopal 2025",
-    eyebrow: "Group photo",
-    caption: "Full house. Last edition.",
-    className: "sm:col-span-12",
-    sizes: "(min-width: 1024px) 66vw, 100vw",
+    sizes: "(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 100vw",
   },
 ]
 
@@ -85,28 +70,21 @@ export function RecapSection() {
         </FadeIn>
 
         <div className="grid lg:grid-cols-[1fr_280px] gap-6 lg:gap-8">
-          {/* Photo gallery: 3 landscape + 1 portrait. The portrait spans
-              two rows on sm+ so it sits flush alongside the first two
-              landscape cards. The fourth (group photo) runs full width
-              underneath as the closing shot. */}
+          {/* Photo gallery: three landscape cards on a clean responsive
+              grid (1-col mobile, 2-col tablet, 3-col desktop) with a
+              uniform aspect ratio so they line up. */}
           <StaggerContainer
-            className="grid grid-cols-1 sm:grid-cols-12 auto-rows-min gap-3"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
             staggerDelay={0.08}
           >
             {photos.map((p) => (
-              <StaggerItem key={p.src} className={p.className}>
+              <StaggerItem key={p.src}>
                 <motion.figure
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.25 }}
                   className="group relative h-full w-full overflow-hidden rounded-xl border border-border/80 bg-card/70"
                 >
-                  <div
-                    className={
-                      p.className.includes("row-span-2")
-                        ? "relative aspect-[3/4] sm:aspect-auto sm:h-full"
-                        : "relative aspect-[16/10]"
-                    }
-                  >
+                  <div className="relative aspect-[4/3]">
                     <Image
                       src={p.src}
                       alt={p.alt}
@@ -130,11 +108,6 @@ export function RecapSection() {
                     <p className="mt-0.5 text-xs sm:text-sm font-semibold text-foreground/95 line-clamp-2">
                       {p.caption}
                     </p>
-                    {p.subtitle ? (
-                      <p className="mt-0.5 text-[11px] sm:text-xs text-muted-foreground line-clamp-1">
-                        {p.subtitle}
-                      </p>
-                    ) : null}
                   </figcaption>
                 </motion.figure>
               </StaggerItem>
