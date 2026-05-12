@@ -32,6 +32,11 @@ const communityLinks = [
   { href: EVENT.links.github, label: "GitHub", external: true },
 ]
 
+const legalLinks = [
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy", label: "Privacy Policy" },
+]
+
 const socialLinks = [
   { href: EVENT.links.twitter, icon: Twitter, label: "Twitter" },
   { href: EVENT.links.linkedin, icon: Linkedin, label: "LinkedIn" },
@@ -55,7 +60,7 @@ export function Footer() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <FadeIn>
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr_1.1fr]">
             {/* Brand block */}
             <div>
               <Link href="/" className="inline-block mb-4">
@@ -120,6 +125,25 @@ export function Footer() {
               </ul>
             </nav>
 
+            {/* Legal */}
+            <nav aria-label="Legal">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/70 mb-4">
+                Legal
+              </h3>
+              <ul className="space-y-2.5">
+                {legalLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
             {/* Contact */}
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/70 mb-4">
@@ -170,27 +194,10 @@ export function Footer() {
 
         <FadeIn delay={0.15}>
           <div className="mt-12 pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-              <p className="text-xs text-muted-foreground">
-                © {new Date().getFullYear()} ML Bhopal · AI Day Bhopal 2.0 ·
-                All rights reserved.
-              </p>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Link
-                  href="/terms"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Terms &amp; Conditions
-                </Link>
-                <span aria-hidden className="opacity-60">·</span>
-                <Link
-                  href="/privacy"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Privacy Policy
-                </Link>
-              </div>
-            </div>
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} ML Bhopal · AI Day Bhopal 2.0 ·
+              All rights reserved.
+            </p>
             <div className="flex items-center gap-3">
               <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground/70">
                 Backed by
