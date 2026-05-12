@@ -173,6 +173,15 @@ export const talentPartners: Partner[] = [
       },
     ],
   },
+  {
+    name: "Zewellery",
+    logo: "/sponsors/zewellery.png",
+    description:
+      "Customised jewellery, perfect for you — handcrafted pieces designed around your story.",
+    url: "https://zewellery.online",
+    tileVariant: "dark",
+    links: [],
+  },
 ]
 
 export const communityPartners: Partner[] = [
@@ -256,6 +265,32 @@ export const communityPartners: Partner[] = [
       {
         label: "Instagram",
         url: "https://www.instagram.com/code._crate/",
+      },
+    ],
+  },
+  {
+    name: "JNCT E-Cell",
+    logo: "/sponsors/jnct-ecell.png",
+    description:
+      "From Ideas To Impact — a student-run organisation fostering the spirit of entrepreneurship among the youth.",
+    url: "https://www.instagram.com/ecell_jnctbhopal/",
+    links: [
+      {
+        label: "Instagram",
+        url: "https://www.instagram.com/ecell_jnctbhopal/",
+      },
+    ],
+  },
+  {
+    name: "GDGOC SISTEC Bhopal",
+    logo: "/sponsors/gdgoc-sistec.png",
+    description:
+      "Google Developer Group on Campus — Sagar Institute of Science and Technology, Gandhinagar, Bhopal.",
+    url: "https://www.instagram.com/gdg_sistec/",
+    links: [
+      {
+        label: "Instagram",
+        url: "https://www.instagram.com/gdg_sistec/",
       },
     ],
   },
