@@ -26,28 +26,10 @@ type Tier = {
   popular?: boolean
   note?: string
   icon: React.ComponentType<{ className?: string }>
-  variant: "soldout" | "standard" | "popular" | "premium"
+  variant: "standard" | "popular" | "premium"
 }
 
 const tickets: Tier[] = [
-  {
-    name: "Early Bird Pass",
-    price: "₹249",
-    originalPrice: "₹349",
-    description: "Basic ticket for early adopters.",
-    features: [
-      "Full day access to all sessions",
-      "Networking opportunities",
-      "Lunch & refreshments",
-      "Event swag included",
-    ],
-    cta: "Sold Out",
-    link: "#",
-    disabled: true,
-    note: "Offer expired",
-    icon: Ticket,
-    variant: "soldout",
-  },
   {
     name: "Builder Pass",
     price: "₹179",
@@ -133,8 +115,6 @@ const lnctTicket: Tier = {
 
 function variantStyle(variant: Tier["variant"]) {
   switch (variant) {
-    case "soldout":
-      return "bg-card/40 border-dashed border-border text-foreground/70"
     case "popular":
       return "bg-card border-primary/50 shadow-[0_0_40px_rgba(245,158,11,0.18)]"
     case "premium":
@@ -173,12 +153,6 @@ function TicketCard({ ticket }: { ticket: Tier }) {
       {ticket.popular && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.2em] bg-primary text-primary-foreground shadow-[0_0_24px_rgba(245,158,11,0.5)]">
           Most Popular
-        </span>
-      )}
-
-      {ticket.variant === "soldout" && (
-        <span className="absolute top-4 right-4 px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider text-foreground/70 bg-foreground/10 border border-border/60">
-          Closed
         </span>
       )}
 
@@ -253,9 +227,9 @@ export function TicketCards() {
       />
 
       <div className="relative max-w-6xl mx-auto">
-        {/* Main 4 cards */}
+        {/* Main 3 cards */}
         <StaggerContainer
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 max-w-5xl mx-auto"
           staggerDelay={0.06}
         >
           {tickets.map((t) => (
