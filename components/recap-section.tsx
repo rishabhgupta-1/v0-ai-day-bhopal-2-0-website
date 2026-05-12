@@ -78,34 +78,32 @@ export function RecapSection() {
             staggerDelay={0.08}
           >
             {photos.map((p) => (
-              <StaggerItem key={p.src}>
+              <StaggerItem key={p.src} className="self-start">
                 <motion.figure
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.25 }}
-                  className="group relative h-full w-full overflow-hidden rounded-xl border border-border/80 bg-card/70"
+                  className="group relative w-full aspect-[4/3] overflow-hidden rounded-2xl border border-border/80 bg-card/70"
                 >
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={p.src}
-                      alt={p.alt}
-                      fill
-                      sizes={p.sizes}
-                      priority={p.priority}
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                    />
-                  </div>
+                  <Image
+                    src={p.src}
+                    alt={p.alt}
+                    fill
+                    sizes={p.sizes}
+                    priority={p.priority}
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
 
                   {/* bottom gradient for caption legibility */}
                   <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/95 via-background/55 to-transparent"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 via-black/55 to-transparent"
                     aria-hidden
                   />
 
-                  <figcaption className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary/90">
+                  <figcaption className="absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/85">
                       {p.eyebrow}
                     </span>
-                    <p className="mt-0.5 text-xs sm:text-sm font-semibold text-foreground/95 line-clamp-2">
+                    <p className="mt-0.5 text-xs sm:text-sm font-semibold text-white line-clamp-2">
                       {p.caption}
                     </p>
                   </figcaption>
@@ -139,7 +137,7 @@ export function RecapSection() {
             ))}
 
             <Link
-              href="https://mlbhopal.tech"
+              href="https://www.commudle.com/communities/ml-bhopal/events/ai-day-bhopal-build-with-ai"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl border border-primary/40 text-sm font-semibold text-primary hover:bg-primary/10 transition-colors"

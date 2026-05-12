@@ -32,6 +32,11 @@ const communityLinks = [
   { href: EVENT.links.github, label: "GitHub", external: true },
 ]
 
+const legalLinks = [
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy", label: "Privacy Policy" },
+]
+
 const socialLinks = [
   { href: EVENT.links.twitter, icon: Twitter, label: "Twitter" },
   { href: EVENT.links.linkedin, icon: Linkedin, label: "LinkedIn" },
@@ -55,7 +60,7 @@ export function Footer() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <FadeIn>
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr_1.1fr]">
             {/* Brand block */}
             <div>
               <Link href="/" className="inline-block mb-4">
@@ -114,6 +119,25 @@ export function Footer() {
                       {link.external && (
                         <ArrowUpRight className="w-3 h-3 opacity-60" />
                       )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Legal */}
+            <nav aria-label="Legal">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/70 mb-4">
+                Legal
+              </h3>
+              <ul className="space-y-2.5">
+                {legalLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
                     </Link>
                   </li>
                 ))}
