@@ -56,4 +56,7 @@ export const WHATSAPP_LINKS = {
   sponsor: whatsappLink(
     `Hi ML Bhopal team, I'd like to chat about sponsoring AI Day Bhopal 2.0 (${EVENT.dateLabel}). Could we set up a quick call?`,
   ),
+  showcase: whatsappLink(
+    `Hi! I'd like to apply for the Project Showcase at AI Day Bhopal 2.0.`,
+  ),
 } as const

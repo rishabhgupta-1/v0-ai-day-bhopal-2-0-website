@@ -13,6 +13,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 const navLinks = [
   { hash: "#speakers", label: "Speakers" },
   { hash: "#agenda", label: "Agenda" },
+  { hash: "#showcase", label: "Showcase" },
   { hash: "#venue", label: "Venue" },
   { hash: "#sponsors", label: "Sponsors" },
 ]
