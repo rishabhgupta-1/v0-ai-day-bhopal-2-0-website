@@ -35,11 +35,11 @@ const speakers: Speaker[] = [
     accent: "var(--g-green)",
   },
   {
-    name: "Announcing soon",
-    role: "Stay tuned",
-    organization: "Reveal #3",
-    image: null,
-    placeholder: true,
+    name: "Ansh Deb",
+    role: "CEO & Cofounder @ Klariqo",
+    organization: "Voice AI · Enterprise · BPO",
+    image: "/speakers/ansh-deb.png",
+    accent: "var(--g-red)",
   },
   {
     name: "Announcing soon",
@@ -78,7 +78,7 @@ export function SpeakersSection() {
             Who&apos;s on the mic.
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Two locked, two reveals on the way. All four ship AI for a living.
+            Three locked, one reveal on the way. All four ship AI for a living.
           </p>
         </FadeIn>
 

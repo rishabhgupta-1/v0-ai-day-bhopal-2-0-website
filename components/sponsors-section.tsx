@@ -124,10 +124,54 @@ function PartnerPill({
     ? { pill: "h-20 pl-2 pr-6 text-base", tile: "h-16 w-16", tileImg: "p-1.5" }
     : { pill: "h-16 pl-1.5 pr-5 text-sm", tile: "h-[52px] w-[52px]", tileImg: "p-1" }
 
-  // White logos (Klariqo, E-Cell) need a dark tile so they actually show.
-  const tileBg = partner.tileVariant === "dark"
-    ? "bg-neutral-900 ring-1 ring-white/10"
-    : "bg-white ring-1 ring-black/5"
+  const hasThemedLogo = Boolean(partner.logoLight)
+
+  // Tile color rules:
+  // - With a themed logo pair (e.g. PixelPandas white + black), the tile
+  //   itself flips per theme: white in light mode (so the BLACK variant
+  //   reads), dark in dark mode (so the WHITE variant reads).
+  // - Without a pair, fall back to the static `tileVariant` heuristic so
+  //   single-asset white logos (Klariqo, E-Cell LNCTS) keep their dark tile
+  //   in both themes.
+  const tileBg = hasThemedLogo
+    ? "bg-white ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10"
+    : partner.tileVariant === "dark"
+      ? "bg-neutral-900 ring-1 ring-white/10"
+      : "bg-white ring-1 ring-black/5"
+
+  /** Render the logo, optionally stacking dark + light variants. */
+  const renderLogo = (cls: string) => {
+    if (!partner.logo) return null
+    if (!hasThemedLogo) {
+      return (
+        <Image
+          src={partner.logo}
+          alt={partner.name}
+          fill
+          className={cls}
+        />
+      )
+    }
+    return (
+      <>
+        {/* Dark theme: the default (typically white-on-transparent) asset */}
+        <Image
+          src={partner.logo}
+          alt={partner.name}
+          fill
+          className={cn(cls, "hidden dark:block")}
+        />
+        {/* Light theme: the dark-on-transparent variant */}
+        <Image
+          src={partner.logoLight!}
+          alt=""
+          aria-hidden
+          fill
+          className={cn(cls, "block dark:hidden")}
+        />
+      </>
+    )
+  }
 
   return (
     <Popover>
@@ -150,12 +194,7 @@ function PartnerPill({
                 dims.tile
               )}
             >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                fill
-                className={cn("object-contain", dims.tileImg)}
-              />
+              {renderLogo(cn("object-contain", dims.tileImg))}
             </span>
           )}
           <span className="text-foreground whitespace-nowrap">
@@ -173,17 +212,14 @@ function PartnerPill({
             <div
               className={cn(
                 "relative h-14 w-14 flex-shrink-0 rounded-xl overflow-hidden p-1.5",
-                partner.tileVariant === "dark"
-                  ? "bg-neutral-900 ring-1 ring-white/10"
-                  : "bg-white ring-1 ring-black/5"
+                hasThemedLogo
+                  ? "bg-white ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10"
+                  : partner.tileVariant === "dark"
+                    ? "bg-neutral-900 ring-1 ring-white/10"
+                    : "bg-white ring-1 ring-black/5"
               )}
             >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                fill
-                className="object-contain p-0.5"
-              />
+              {renderLogo("object-contain p-0.5")}
             </div>
           )}
           <p className="font-semibold text-foreground text-base leading-tight">
@@ -315,10 +351,20 @@ export function SponsorsSection() {
           {/* ── GOLD SPONSOR — premium card with social icons ── */}
           {goldSponsors.length > 0 && (
             <ScaleIn delay={0.1}>
-              <div className="mb-24">
-                <h3 className="text-center font-mono text-sm sm:text-base uppercase tracking-[0.35em] text-amber-400 mb-10">
-                  Gold Sponsor
-                </h3>
+              <div className="mb-20">
+                <div className="flex items-center justify-center gap-3 mb-10">
+                  <span
+                    className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent via-amber-500/60 to-amber-500/80"
+                    aria-hidden
+                  />
+                  <h3 className="font-mono text-base sm:text-lg font-bold uppercase tracking-[0.32em] text-amber-600 dark:text-amber-400 drop-shadow-[0_0_18px_rgba(245,158,11,0.25)]">
+                    Gold {goldSponsors.length > 1 ? "Sponsors" : "Sponsor"}
+                  </h3>
+                  <span
+                    className="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent via-amber-500/60 to-amber-500/80"
+                    aria-hidden
+                  />
+                </div>
                 <div className="grid gap-8 sm:grid-cols-1 max-w-3xl mx-auto">
                   {goldSponsors.map((s) => (
                     <div
@@ -405,27 +451,100 @@ export function SponsorsSection() {
             </ScaleIn>
           )}
 
-          {/* ── SILVER (hidden when empty) ── */}
+          {/* ── SILVER SPONSORS — refined mid-tier card. Smaller frame than
+              Gold, but the actual logo gets to be hero-sized so brands feel
+              recognised. ── */}
           {silverSponsors.length > 0 && (
-            <FadeIn>
-              <div className="text-center mb-24">
-                <h3 className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground/60 mb-10">
-                  Silver Sponsors
-                </h3>
-                <div className="flex flex-wrap justify-center gap-10">
+            <ScaleIn delay={0.1}>
+              <div className="mb-20">
+                <div className="flex items-center justify-center gap-3 mb-8">
+                  <span
+                    className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent via-zinc-400/60 to-zinc-400/80"
+                    aria-hidden
+                  />
+                  <h3 className="font-mono text-sm sm:text-base font-bold uppercase tracking-[0.3em] text-zinc-600 dark:text-zinc-300 drop-shadow-[0_0_14px_rgba(161,161,170,0.25)]">
+                    Silver {silverSponsors.length > 1 ? "Sponsors" : "Sponsor"}
+                  </h3>
+                  <span
+                    className="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent via-zinc-400/60 to-zinc-400/80"
+                    aria-hidden
+                  />
+                </div>
+                <div
+                  className={cn(
+                    "grid gap-5 mx-auto",
+                    silverSponsors.length === 1
+                      ? "sm:grid-cols-1 max-w-xs sm:max-w-md"
+                      : "sm:grid-cols-2 max-w-3xl",
+                  )}
+                >
                   {silverSponsors.map((s) => (
-                    <a key={s.name} href={s.url ?? "#"} target="_blank" rel="noopener noreferrer" className="group">
-                      {s.logo ? (
-                        <Image src={s.logo} alt={s.name} width={240} height={64}
-                          className="h-14 w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity" />
-                      ) : (
-                        <span className="text-base font-semibold text-foreground/70 group-hover:text-foreground transition-colors">{s.name}</span>
-                      )}
-                    </a>
+                    <div
+                      key={s.name}
+                      className="group relative overflow-hidden rounded-2xl border border-zinc-300/40 bg-gradient-to-br from-zinc-200/[0.18] via-card/80 to-card p-3.5 sm:p-6 backdrop-blur-sm dark:border-zinc-400/15 dark:from-zinc-200/[0.05]"
+                    >
+                      <div
+                        className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"
+                        style={{
+                          background:
+                            "radial-gradient(ellipse at top, rgba(180,180,180,0.12), transparent 65%)",
+                        }}
+                        aria-hidden
+                      />
+                      <div className="relative flex flex-col items-center text-center gap-2.5 sm:gap-3.5">
+                        <a
+                          href={s.url ?? "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex group/logo relative"
+                        >
+                          {s.logo ? (
+                            <span className="relative inline-flex items-center justify-center px-2 py-1 group-hover/logo:scale-[1.03] transition-transform duration-300">
+                              <Image
+                                src={s.logo}
+                                alt={s.name}
+                                width={600}
+                                height={300}
+                                className="h-28 sm:h-32 w-auto object-contain"
+                              />
+                            </span>
+                          ) : (
+                            <span className="relative text-xl sm:text-2xl font-bold text-foreground">
+                              {s.name}
+                            </span>
+                          )}
+                        </a>
+                        {s.tagline && (
+                          <p className="text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed line-clamp-2 sm:line-clamp-none">
+                            {s.tagline}
+                          </p>
+                        )}
+                        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+                          {s.url && (
+                            <a
+                              href={s.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 rounded-full border border-zinc-400/50 bg-zinc-200/15 px-3 py-1 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-zinc-700 hover:bg-zinc-200/30 hover:border-zinc-400/70 transition-colors dark:text-zinc-200 dark:bg-zinc-200/10"
+                            >
+                              <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                              Visit {s.name.split(" ")[0]}
+                            </a>
+                          )}
+                          {s.links?.map((link) => (
+                            <SocialIconLink
+                              key={link.label}
+                              label={link.label}
+                              url={link.url}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
-            </FadeIn>
+            </ScaleIn>
           )}
         </div>
 

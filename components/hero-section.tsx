@@ -21,7 +21,7 @@ import {
 
 /**
  * Compose a single flat list for the hero marquee:
- *   Gold sponsor(s) → Talent Partners → Community Partners.
+ *   Gold sponsor(s) → Silver sponsor(s) → Talent Partners → Community Partners.
  *
  * Google for Developers already has its own "Backed by" pill in the trust
  * strip, so we don't duplicate it in the marquee.
@@ -30,19 +30,31 @@ const heroMarqueeItems: MarqueeItem[] = [
   ...sponsors.gold.map((s) => ({
     name: s.name,
     logo: s.logo,
+    logoLight: s.logoLight,
     url: s.url,
-    tileVariant:
-      s.name === "Klariqo" ? ("dark" as const) : ("light" as const),
+    // Klariqo: white lockup + black light-variant + theme-adaptive tile is
+    // handled automatically by the marquee when `logoLight` is present, so
+    // we don't need an explicit tileVariant here.
+    tileVariant: ("light" as const),
+  })),
+  ...sponsors.silver.map((s) => ({
+    name: s.name,
+    logo: s.logo,
+    logoLight: s.logoLight,
+    url: s.url,
+    tileVariant: "light" as const,
   })),
   ...talentPartners.map((p) => ({
     name: p.name,
     logo: p.logo,
+    logoLight: p.logoLight,
     url: p.url,
     tileVariant: p.tileVariant ?? ("light" as const),
   })),
   ...communityPartners.map((p) => ({
     name: p.name,
     logo: p.logo,
+    logoLight: p.logoLight,
     url: p.url,
     tileVariant: p.tileVariant ?? ("light" as const),
   })),
