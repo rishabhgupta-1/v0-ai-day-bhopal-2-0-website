@@ -7,44 +7,37 @@ import { ArrowUpRight } from "lucide-react"
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion"
 
 type RecapPhoto = {
-  label: string
+  src: string
+  alt: string
+  eyebrow: string
   caption: string
-  /** drop a /public path or remote URL once the real photo is available */
-  src?: string
-  className: string
-  gradient: string
+  /** next/image `sizes` hint so responsive variants are right-sized. */
+  sizes: string
+  priority?: boolean
 }
 
 const photos: RecapPhoto[] = [
   {
-    label: "Keynote",
-    caption: "Anubhav on RAG eval — the room didn't blink.",
-    className: "sm:col-span-2 sm:row-span-2 aspect-[4/3]",
-    gradient: "from-amber-500/30 via-orange-500/15 to-transparent",
+    src: "/recap/anubhav-talk.jpg",
+    alt: "Anubhav running his full session on RAG at AI Day Bhopal 2025",
+    eyebrow: "Full session",
+    caption: "Anubhav · a full session on RAG.",
+    sizes: "(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 100vw",
+    priority: true,
   },
   {
-    label: "Workshop",
-    caption: "Vertex AI Studio, hands on keyboards.",
-    className: "aspect-[4/3]",
-    gradient: "from-blue-500/25 via-blue-500/10 to-transparent",
+    src: "/recap/full-house.jpg",
+    alt: "Wide group photo of the full auditorium at AI Day Bhopal 2025",
+    eyebrow: "Group photo",
+    caption: "Full house. Last edition.",
+    sizes: "(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 100vw",
   },
   {
-    label: "Panel",
-    caption: "Agentic AI — the question kept getting harder.",
-    className: "aspect-[4/3]",
-    gradient: "from-red-500/25 via-red-500/10 to-transparent",
-  },
-  {
-    label: "Showcase",
-    caption: "Project demos that ran past schedule.",
-    className: "aspect-[4/3]",
-    gradient: "from-green-500/25 via-green-500/10 to-transparent",
-  },
-  {
-    label: "Group photo",
-    caption: "The 500. Last person left at 10:42 PM.",
-    className: "aspect-[4/3]",
-    gradient: "from-yellow-500/25 via-yellow-500/10 to-transparent",
+    src: "/recap/vertex-ai-walkthrough.jpg",
+    alt: "Live Vertex AI walkthrough on stage at AI Day Bhopal 2025",
+    eyebrow: "Live walkthrough",
+    caption: "Vertex AI on the big screen — built live.",
+    sizes: "(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 100vw",
   },
 ]
 
@@ -77,50 +70,42 @@ export function RecapSection() {
         </FadeIn>
 
         <div className="grid lg:grid-cols-[1fr_280px] gap-6 lg:gap-8">
-          {/* Photo grid */}
+          {/* Photo gallery: three landscape cards on a clean responsive
+              grid (1-col mobile, 2-col tablet, 3-col desktop) with a
+              uniform aspect ratio so they line up. */}
           <StaggerContainer
-            className="grid grid-cols-2 sm:grid-cols-4 sm:auto-rows-[140px] gap-3"
-            staggerDelay={0.06}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
+            staggerDelay={0.08}
           >
-            {photos.map((p, i) => (
-              <StaggerItem key={i} className={p.className}>
+            {photos.map((p) => (
+              <StaggerItem key={p.src}>
                 <motion.figure
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.25 }}
-                  className="group relative h-full w-full rounded-xl overflow-hidden border border-border/80 bg-card/70"
+                  className="group relative h-full w-full overflow-hidden rounded-xl border border-border/80 bg-card/70"
                 >
-                  {p.src ? (
+                  <div className="relative aspect-[4/3]">
                     <Image
                       src={p.src}
-                      alt={p.caption}
+                      alt={p.alt}
                       fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      sizes={p.sizes}
+                      priority={p.priority}
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     />
-                  ) : (
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${p.gradient}`}
-                      aria-hidden
-                    />
-                  )}
-                  {!p.src && (
-                    <div
-                      className="absolute inset-0 bg-dot-grid opacity-50"
-                      aria-hidden
-                    />
-                  )}
+                  </div>
 
-                  {/* bottom gradient for legibility */}
+                  {/* bottom gradient for caption legibility */}
                   <div
-                    className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/90 to-transparent"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/95 via-background/55 to-transparent"
                     aria-hidden
                   />
 
                   <figcaption className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary/90">
-                      {p.label}
+                      {p.eyebrow}
                     </span>
-                    <p className="mt-0.5 text-xs sm:text-sm font-medium text-foreground/90 line-clamp-2">
+                    <p className="mt-0.5 text-xs sm:text-sm font-semibold text-foreground/95 line-clamp-2">
                       {p.caption}
                     </p>
                   </figcaption>

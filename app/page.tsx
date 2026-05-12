@@ -7,6 +7,7 @@ import { StatsSection } from "@/components/stats-section"
 import { ExpectSection } from "@/components/expect-section"
 import { SpeakersSection } from "@/components/speakers-section"
 import { AgendaSection } from "@/components/agenda-section"
+import { ProjectShowcaseSection } from "@/components/project-showcase-section"
 import { RecapSection } from "@/components/recap-section"
 import { VenueSection } from "@/components/venue-section"
 import { TicketsSection } from "@/components/tickets-section"
@@ -30,6 +31,7 @@ export default function Home() {
         <ExpectSection />
         <SpeakersSection />
         <AgendaSection />
+        <ProjectShowcaseSection />
         <SponsorsSection />
         <TicketsSection />
         <RecapSection />
