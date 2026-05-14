@@ -33,6 +33,7 @@ const tickets: Tier[] = [
   {
     name: "Builder Pass",
     price: "₹299",
+    originalPrice: "₹179",
     description: "Affordable access. No swag included.",
     features: [
       "Full event access",
